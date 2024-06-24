@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<!DOCTYPE cambalache-project SYSTEM "cambalache-project.dtd">
+<cambalache-project version="0.17.3" target_tk="gtk-4.0">
+  <ui>
+	(4,1,None,"AppGridView.ui",None,None,None,None,None,None,None),
+	(5,1,None,"FlowAppButton.ui",None,None,None,None,None,None,None)
+  </ui>
+  <object>
+	(4,1,"GtkGridView","AppView",None,None,None,None,-1,None,None),
+	(4,2,"GtkBuilderListItemFactory",None,1,None,None,None,-1,None,None),
+	(5,1,"GtkButton","FlowAppButton",None,None,None,None,-1,None,None),
+	(5,2,"GtkBox",None,1,None,None,None,-1,None,None),
+	(5,3,"GtkImage","icon",2,None,None,None,-1,None,None),
+	(5,4,"GtkBox",None,2,None,None,None,-1,None,None),
+	(5,5,"GtkLabel","name_label",4,None,None,None,-1,None,None),
+	(5,6,"GtkLabel","author_label",4,None,None,None,-1,None,None)
+  </object>
+  <object_property>
+	(4,1,"GtkGridView","factory",None,None,None,None,None,2,None,None,None,None),
+	(4,1,"GtkGridView","max-columns","4",None,None,None,None,None,None,None,None,None),
+	(4,1,"GtkWidget","halign","center",None,None,None,None,None,None,None,None,None),
+	(4,2,"GtkBuilderListItemFactory","bytes","&lt;?xml version='1.0' encoding='UTF-8'?&gt;\n&lt;!-- This ui file was created by hand, not with Cambalache.                  --&gt;\n&lt;!-- It may need to be pasted into a Cambalache template to be properly used --&gt;\n&lt;interface&gt;\n  &lt;template class=\"GtkListItem\"&gt;\n    &lt;property name=\"child\"&gt;\n      &lt;object class=\"GtkButton\"&gt;\n        &lt;property name=\"valign\"&gt;start&lt;/property&gt;\n        &lt;property name=\"vexpand\"&gt;false&lt;/property&gt;\n        &lt;property name=\"halign\"&gt;fill&lt;/property&gt;\n        &lt;property name=\"hexpand\"&gt;false&lt;/property&gt;\n        &lt;property name=\"width-request\"&gt;275&lt;/property&gt;\n        &lt;property name=\"height-request\"&gt;-1&lt;/property&gt;\n        &lt;style&gt;\n          &lt;class name=\"card\"/&gt;\n        &lt;/style&gt;\n        &lt;property name=\"child\"&gt;\n          &lt;object class=\"GtkBox\"&gt;\n            &lt;property name=\"orientation\"&gt;horizontal&lt;/property&gt;\n            &lt;property name=\"spacing\"&gt;15&lt;/property&gt;\n            &lt;property name=\"hexpand\"&gt;false&lt;/property&gt;\n            &lt;property name=\"halign\"&gt;start&lt;/property&gt;\n            &lt;property name=\"vexpand\"&gt;false&lt;/property&gt;\n            &lt;property name=\"valign\"&gt;start&lt;/property&gt;\n            &lt;property name=\"margin-start\"&gt;5&lt;/property&gt;\n            &lt;property name=\"margin-top\"&gt;5&lt;/property&gt;\n            &lt;property name=\"margin-bottom\"&gt;5&lt;/property&gt;\n            &lt;property name=\"margin-end\"&gt;10&lt;/property&gt;\n    &lt;!--        &lt;property name=\"height_request\"&gt;10&lt;/property&gt;--&gt;\n    &lt;!--        &lt;property name=\"width_request\"&gt;30&lt;/property&gt;--&gt;\n            &lt;child&gt;\n              &lt;object class=\"GtkImage\" id=\"image\"&gt;\n                &lt;property name=\"halign\"&gt;start&lt;/property&gt;\n                &lt;property name=\"icon-name\"&gt;image-missing-symbolic&lt;/property&gt;\n                &lt;property name=\"pixel-size\"&gt;64&lt;/property&gt;\n                &lt;property name=\"valign\"&gt;center&lt;/property&gt;\n              &lt;/object&gt;\n            &lt;/child&gt;\n            &lt;child&gt;\n              &lt;object class=\"GtkBox\"&gt;\n                &lt;property name=\"orientation\"&gt;vertical&lt;/property&gt;\n                &lt;child&gt;\n                  &lt;object class=\"GtkLabel\" id=\"name\"&gt;\n                    &lt;property name=\"ellipsize\"&gt;end&lt;/property&gt;\n                    &lt;property name=\"wrap\"&gt;True&lt;/property&gt;\n                    &lt;property name=\"lines\"&gt;2&lt;/property&gt;\n                    &lt;property name=\"xalign\"&gt;0&lt;/property&gt;\n                    &lt;binding name=\"label\"&gt;\n                      &lt;lookup name=\"name\" type=\"AppItem\"&gt;\n                        &lt;lookup name=\"item\" type=\"GtkListItem\"&gt;\n                          &lt;constant&gt;GtkListItem&lt;/constant&gt;\n                        &lt;/lookup&gt;\n                      &lt;/lookup&gt;\n                    &lt;/binding&gt;\n                    &lt;style&gt;\n                      &lt;class name=\"title-4\"/&gt;\n                    &lt;/style&gt;\n                  &lt;/object&gt;\n                &lt;/child&gt;\n                &lt;child&gt;\n                  &lt;object class=\"GtkLabel\" id=\"author\"&gt;\n                    &lt;property name=\"ellipsize\"&gt;end&lt;/property&gt;\n                    &lt;property name=\"xalign\"&gt;0&lt;/property&gt;\n                    &lt;property name=\"wrap\"&gt;False&lt;/property&gt;\n&lt;!--                    &lt;property name=\"lines\"&gt;1&lt;/property&gt;--&gt;\n                    &lt;binding name=\"label\"&gt;\n                      &lt;lookup name=\"author\" type=\"AppItem\"&gt;\n                        &lt;lookup name=\"item\" type=\"GtkListItem\"&gt;\n                          &lt;constant&gt;GtkListItem&lt;/constant&gt;\n                        &lt;/lookup&gt;\n                      &lt;/lookup&gt;\n                    &lt;/binding&gt;\n                    &lt;binding name=\"visible\"&gt;\n                      &lt;lookup name=\"author_visible\" type=\"AppItem\"&gt;\n                        &lt;lookup name=\"item\" type=\"GtkListItem\"&gt;\n                          &lt;constant&gt;GtkListItem&lt;/constant&gt;\n                        &lt;/lookup&gt;\n                      &lt;/lookup&gt;\n                    &lt;/binding&gt;\n                    &lt;style&gt;\n                      &lt;class name=\"dim-label\"/&gt;\n                    &lt;/style&gt;\n                  &lt;/object&gt;\n                &lt;/child&gt;\n              &lt;/object&gt;\n            &lt;/child&gt;\n          &lt;/object&gt;\n        &lt;/property&gt;\n      &lt;/object&gt;\n    &lt;/property&gt;\n  &lt;/template&gt;\n&lt;/interface&gt;",None,None,None,None,None,None,None,None,None),
+	(5,1,"GtkWidget","valign","start",None,None,None,None,None,None,None,None,None),
+	(5,1,"GtkWidget","width-request","275",None,None,None,None,None,None,None,None,None),
+	(5,2,"GtkBox","spacing","15",None,None,None,None,None,None,None,None,None),
+	(5,2,"GtkWidget","halign","start",None,None,None,None,None,None,None,None,None),
+	(5,2,"GtkWidget","margin-bottom","10",None,None,None,None,None,None,None,None,None),
+	(5,2,"GtkWidget","margin-end","5",None,None,None,None,None,None,None,None,None),
+	(5,2,"GtkWidget","margin-start","5",None,None,None,None,None,None,None,None,None),
+	(5,2,"GtkWidget","margin-top","5",None,None,None,None,None,None,None,None,None),
+	(5,2,"GtkWidget","valign","start",None,None,None,None,None,None,None,None,None),
+	(5,3,"GtkImage","icon-name","image-missing-symbolic",None,None,None,None,None,None,None,None,None),
+	(5,3,"GtkImage","pixel-size","64",None,None,None,None,None,None,None,None,None),
+	(5,3,"GtkWidget","valign","center",None,None,None,None,None,None,None,None,None),
+	(5,4,"GtkOrientable","orientation","vertical",None,None,None,None,None,None,None,None,None),
+	(5,5,"GtkLabel","ellipsize","end",None,None,None,None,None,None,None,None,None),
+	(5,5,"GtkLabel","label","App Name",None,None,None,None,None,None,None,None,None),
+	(5,5,"GtkLabel","lines","2",None,None,None,None,None,None,None,None,None),
+	(5,5,"GtkLabel","wrap","True",None,None,None,None,None,None,None,None,None),
+	(5,5,"GtkLabel","xalign","0.0",None,None,None,None,None,None,None,None,None),
+	(5,6,"GtkLabel","label","Author",None,None,None,None,None,None,None,None,None),
+	(5,6,"GtkLabel","lines","1",None,None,None,None,None,None,None,None,None),
+	(5,6,"GtkLabel","xalign","0.0",None,None,None,None,None,None,None,None,None)
+  </object_property>
+  <object_data>
+	(5,5,"GtkWidget",1,1,None,None,None,None,None,None),
+	(5,5,"GtkWidget",2,2,None,1,None,None,None,None),
+	(5,6,"GtkWidget",1,1,None,None,None,None,None,None),
+	(5,6,"GtkWidget",2,2,None,1,None,None,None,None)
+  </object_data>
+  <object_data_arg>
+	(5,5,"GtkWidget",2,2,"name","title-4"),
+	(5,6,"GtkWidget",2,2,"name","dim-label")
+  </object_data_arg>
+</cambalache-project>
