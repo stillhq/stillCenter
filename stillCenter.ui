@@ -2,4 +2,68 @@
 <!-- Created with Cambalache 0.90.2 -->
 <interface>
   <!-- interface-name stillcenter.ui -->
+  <requires lib="gtk" version="4.0"/>
+  <requires lib="libadwaita" version="1.4"/>
+  <object class="AdwApplicationWindow" id="window">
+    <child>
+      <object class="AdwNavigationView" id="main_view">
+        <child>
+          <object class="AdwNavigationPage" id="main_page">
+            <child>
+              <object class="AdwNavigationSplitView" id="split_view">
+                <child>
+                  <object class="AdwNavigationPage">
+                    <child>
+                      <object class="GtkBox" id="sidebar">
+                        <property name="orientation">vertical</property>
+                        <child>
+                          <object class="AdwHeaderBar">
+                            <property name="show-end-title-buttons">False</property>
+                            <property name="title-widget">
+                              <object class="AdwWindowTitle">
+                                <property name="title">stillCenter</property>
+                              </object>
+                            </property>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkListBox" id="main_sidebar"/>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="AdwNavigationPage">
+                    <child>
+                      <object class="GtkStack">
+                        <child>
+                          <object class="GtkStackPage" id="home_page">
+                            <property name="child">
+                              <object class="GtkLabel">
+                                <property name="label">Empty Page</property>
+                              </object>
+                            </property>
+                            <property name="name">homepage</property>
+                            <property name="title">Homepage</property>
+                            <child>
+                              <object class="GtkBox">
+                                <child>
+                                  <object class="FlowApps"/>
+                                </child>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
 </interface>
