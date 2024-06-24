@@ -18,10 +18,15 @@
 	(1,8,"AdwWindowTitle",None,7,None,None,None,None,None,None),
 	(1,9,"GtkListBox","main_sidebar",6,None,None,None,1,None,None),
 	(1,10,"AdwNavigationPage",None,4,None,None,None,-1,None,None),
-	(1,11,"GtkStack",None,10,None,None,None,-1,None,None),
-	(1,13,"GtkStackPage","home_page",11,None,None,None,-1,None,None),
-	(1,14,"GtkBox",None,13,None,None,None,-1,None,None),
-	(1,15,"FlowApps",None,14,None,None,None,-1,None,None),
+	(1,11,"GtkStack","main_stack",10,None,None,None,-1,None,None),
+	(1,15,"GtkStackPage",None,11,None,None,None,-1,None,None),
+	(1,16,"GtkScrolledWindow",None,15,None,None,None,-1,None,None),
+	(1,17,"GtkBox",None,16,None,None,None,-1,None,None),
+	(1,18,"FlowApps","essentials",17,None,None,None,-1,None,None),
+	(1,19,"FlowApps","ourpicks",17,None,None,None,-1,None,None),
+	(1,20,"FlowApps","usedforstillos",17,None,None,None,-1,None,None),
+	(1,21,"GtkStackPage",None,11,None,None,None,-1,None,None),
+	(1,22,"GtkScrolledWindow",None,21,None,None,None,-1,None,None),
 	(4,1,"GtkGridView","AppView",None,None,None,None,-1,None,None),
 	(4,2,"GtkBuilderListItemFactory",None,1,None,None,None,-1,None,None),
 	(5,1,"GtkButton","FlowAppButton",None,None,None,None,-1,None,None),
@@ -42,8 +47,17 @@
 	(1,7,"AdwHeaderBar","show-end-title-buttons","False",None,None,None,None,None,None,None,None,None),
 	(1,7,"AdwHeaderBar","title-widget",None,None,None,None,None,8,None,None,None,None),
 	(1,8,"AdwWindowTitle","title","stillCenter",None,None,None,None,None,None,None,None,None),
-	(1,13,"GtkStackPage","name","homepage",None,None,None,None,None,None,None,None,None),
-	(1,13,"GtkStackPage","title","Homepage",None,None,None,None,None,None,None,None,None),
+	(1,15,"GtkStackPage","child",None,None,None,None,None,16,None,None,None,None),
+	(1,15,"GtkStackPage","name","home",None,None,None,None,None,None,None,None,None),
+	(1,15,"GtkStackPage","title","Home",None,None,None,None,None,None,None,None,None),
+	(1,16,"GtkScrolledWindow","child",None,None,None,None,None,17,None,None,None,None),
+	(1,17,"GtkBox","spacing","15",None,None,None,None,None,None,None,None,None),
+	(1,17,"GtkOrientable","orientation","vertical",None,None,None,None,None,None,None,None,None),
+	(1,17,"GtkWidget","margin-bottom","20",None,None,None,None,None,None,None,None,None),
+	(1,17,"GtkWidget","margin-end","15",None,None,None,None,None,None,None,None,None),
+	(1,17,"GtkWidget","margin-start","15",None,None,None,None,None,None,None,None,None),
+	(1,17,"GtkWidget","margin-top","20",None,None,None,None,None,None,None,None,None),
+	(1,21,"GtkStackPage","child",None,None,None,None,None,22,None,None,None,None),
 	(4,1,"GtkGridView","factory",None,None,None,None,None,2,None,None,None,None),
 	(4,1,"GtkGridView","max-columns","4",None,None,None,None,None,None,None,None,None),
 	(4,1,"GtkWidget","halign","center",None,None,None,None,None,None,None,None,None),
@@ -92,13 +106,14 @@
 	(6,2,"GtkWidget",1,1,None,None,None,None,None,None),
 	(6,2,"GtkWidget",2,2,None,1,None,None,None,None),
 	(6,3,"GtkWidget",1,1,None,None,None,None,None,None),
-	(6,3,"GtkWidget",2,2,None,1,None,None,None,None)
+	(6,3,"GtkWidget",2,2,None,1,None,None,None,None),
+	(1,2,"GtkWidget",1,1,None,None,None,None,None,None)
   </object_data>
   <object_data_arg>
 	(5,5,"GtkWidget",2,2,"name","title-4"),
 	(5,6,"GtkWidget",2,2,"name","dim-label"),
 	(6,1,"GtkWidget",2,2,"name","title-1"),
-	(6,2,"GtkWidget",2,2,"name","title-1"),
-	(6,3,"GtkWidget",2,2,"name","card")
+	(6,3,"GtkWidget",2,2,"name","card"),
+	(6,2,"GtkWidget",2,2,"name","title-1")
   </object_data_arg>
 </cambalache-project>
