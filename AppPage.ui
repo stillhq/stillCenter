@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- Created with Cambalache 0.90.3 -->
+<interface>
+  <requires lib="gtk" version="4.12"/>
+  <object class="GtkBox">
+    <property name="orientation">vertical</property>
+    <child>
+      <object class="GtkBox">
+        <child>
+          <object class="GtkImage" id="icon">
+            <property name="icon-name">image-missing-symbolic</property>
+            <property name="pixel-size">96</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkBox">
+            <property name="margin-start">10</property>
+            <property name="orientation">vertical</property>
+            <child>
+              <object class="GtkLabel" id="name_label">
+                <property name="label">App Name</property>
+                <property name="xalign">0.0</property>
+                <style>
+                  <class name="title-1"/>
+                </style>
+              </object>
+            </child>
+            <child>
+              <object class="GtkLabel" id="author_label">
+                <property name="label">App Author</property>
+                <property name="xalign">0.0</property>
+                <style>
+                  <class name="title-4"/>
+                  <class name="dim-label"/>
+                </style>
+              </object>
+            </child>
+            <child>
+              <object class="GtkButton" id="stillRatingButton">
+                <property name="child">
+                  <object class="GtkBox" id="stillRatingLabel">
+                    <property name="orientation">vertical</property>
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="label">stillRating:</property>
+                        <property name="xalign">0.0</property>
+                        <style>
+                          <class name="dim-label"/>
+                          <class name="caption"/>
+                        </style>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="stillRating Label">
+                        <property name="label">Unknown</property>
+                        <style>
+                          <class/>
+                        </style>
+                      </object>
+                    </child>
+                  </object>
+                </property>
+                <style>
+                  <class name="bronze"/>
+                </style>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>

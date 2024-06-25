@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- Created with Cambalache 0.90.3 -->
+<interface>
+  <requires lib="gtk" version="4.12"/>
+  <object class="GtkBox">
+    <property name="orientation">vertical</property>
+    <child>
+      <object class="GtkLabel" id="label">
+        <property name="label">Category Name</property>
+        <property name="xalign">0.0</property>
+        <style>
+          <class name="title-1"/>
+        </style>
+      </object>
+    </child>
+    <child>
+      <object class="GtkScrolledWindow">
+        <property name="child">
+          <object class="GtkBox" id="button_box">
+            <property name="spacing">5</property>
+          </object>
+        </property>
+        <property name="vscrollbar-policy">never</property>
+      </object>
+    </child>
+    <child>
+      <object class="AppGridView">
+        <property name="max-columns">4</property>
+      </object>
+    </child>
+    <style/>
+  </object>
+</interface>
