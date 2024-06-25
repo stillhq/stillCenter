@@ -2,72 +2,196 @@
 <!-- Created with Cambalache 0.90.3 -->
 <interface>
   <requires lib="gtk" version="4.12"/>
-  <object class="GtkBox">
-    <property name="orientation">vertical</property>
-    <child>
+  <requires lib="libadwaita" version="1.3"/>
+  <object class="GtkScrolledWindow">
+    <property name="child">
       <object class="GtkBox">
+        <property name="margin-bottom">10</property>
+        <property name="margin-end">10</property>
+        <property name="margin-start">10</property>
+        <property name="margin-top">10</property>
+        <property name="orientation">vertical</property>
         <child>
-          <object class="GtkImage" id="icon">
-            <property name="icon-name">image-missing-symbolic</property>
-            <property name="pixel-size">96</property>
+          <object class="GtkBox">
+            <property name="spacing">10</property>
+            <child>
+              <object class="GtkImage" id="icon">
+                <property name="icon-name">image-missing-symbolic</property>
+                <property name="pixel-size">128</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkBox">
+                <property name="hexpand">True</property>
+                <property name="margin-start">5</property>
+                <property name="margin-top">5</property>
+                <property name="orientation">vertical</property>
+                <property name="spacing">5</property>
+                <property name="valign">center</property>
+                <child>
+                  <object class="GtkLabel" id="author_label">
+                    <property name="label">App Author</property>
+                    <property name="xalign">0.0</property>
+                    <style>
+                      <class name="title-4"/>
+                      <class name="dim-label"/>
+                    </style>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="name_label">
+                    <property name="label">App Name</property>
+                    <property name="xalign">0.0</property>
+                    <style>
+                      <class name="title-1"/>
+                    </style>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkButton" id="stillRatingButton">
+                    <property name="child">
+                      <object class="GtkBox">
+                        <property name="orientation">vertical</property>
+                        <child>
+                          <object class="GtkLabel">
+                            <property name="label">stillRating:</property>
+                            <property name="xalign">0.0</property>
+                            <style>
+                              <class name="caption"/>
+                              <class name="dim-label"/>
+                            </style>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkLabel" id="stillRatingLabel">
+                            <property name="label">Unknown</property>
+                          </object>
+                        </child>
+                      </object>
+                    </property>
+                    <property name="halign">start</property>
+                    <property name="margin-top">5</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="GtkButton" id="remove_button">
+                <property name="icon-name">app-remove-symbolic</property>
+                <property name="valign">center</property>
+                <style>
+                  <class name="circular"/>
+                  <class name="error"/>
+                </style>
+              </object>
+            </child>
+            <child>
+              <object class="GtkButton" id="update_button">
+                <property name="icon-name">software-update-available-symbolic</property>
+                <property name="valign">center</property>
+                <style>
+                  <class name="circular"/>
+                  <class name="accent"/>
+                </style>
+              </object>
+            </child>
+            <child>
+              <object class="GtkButton" id="install_button">
+                <property name="label">Install</property>
+                <property name="valign">center</property>
+                <style>
+                  <class name="suggested-action"/>
+                </style>
+              </object>
+            </child>
+            <style/>
           </object>
         </child>
         <child>
-          <object class="GtkBox">
-            <property name="margin-start">10</property>
-            <property name="orientation">vertical</property>
+          <object class="GtkScrolledWindow">
+            <property name="hscrollbar-policy">never</property>
+            <property name="margin-top">10</property>
+            <property name="valign">start</property>
             <child>
-              <object class="GtkLabel" id="name_label">
-                <property name="label">App Name</property>
+              <object class="GtkBox" id="screenshot_box"/>
+            </child>
+            <style>
+              <class name="card"/>
+            </style>
+          </object>
+        </child>
+        <child>
+          <object class="GtkLabel">
+            <property name="label">App Summary</property>
+            <property name="xalign">0.0</property>
+            <style>
+              <class name="title-2"/>
+            </style>
+          </object>
+        </child>
+        <child>
+          <object class="AdwBin">
+            <property name="child">
+              <object class="GtkLabel" id="description">
+                <property name="label">App Description</property>
+                <property name="margin-bottom">10</property>
+                <property name="margin-end">10</property>
+                <property name="margin-start">10</property>
+                <property name="margin-top">10</property>
+                <property name="wrap">True</property>
                 <property name="xalign">0.0</property>
-                <style>
-                  <class name="title-1"/>
-                </style>
+              </object>
+            </property>
+            <property name="margin-top">5</property>
+            <style>
+              <class name="card"/>
+            </style>
+          </object>
+        </child>
+        <child>
+          <object class="GtkListBox">
+            <property name="margin-top">20</property>
+            <child>
+              <object class="AdwActionRow" id="homepage_row">
+                <property name="icon-name">web-browser-symbolic</property>
+                <property name="subtitle">https://example.com</property>
+                <property name="title">Homepage</property>
               </object>
             </child>
             <child>
-              <object class="GtkLabel" id="author_label">
-                <property name="label">App Author</property>
-                <property name="xalign">0.0</property>
-                <style>
-                  <class name="title-4"/>
-                  <class name="dim-label"/>
-                </style>
+              <object class="AdwActionRow" id="donate_row">
+                <property name="icon-name">money-symbolic</property>
+                <property name="subtitle">https://example.com</property>
+                <property name="title">Donate</property>
               </object>
             </child>
             <child>
-              <object class="GtkButton" id="stillRatingButton">
-                <property name="child">
-                  <object class="GtkBox" id="stillRatingLabel">
-                    <property name="orientation">vertical</property>
-                    <child>
-                      <object class="GtkLabel">
-                        <property name="label">stillRating:</property>
-                        <property name="xalign">0.0</property>
-                        <style>
-                          <class name="dim-label"/>
-                          <class name="caption"/>
-                        </style>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkLabel" id="stillRating Label">
-                        <property name="label">Unknown</property>
-                        <style>
-                          <class/>
-                        </style>
-                      </object>
-                    </child>
-                  </object>
-                </property>
-                <style>
-                  <class name="bronze"/>
-                </style>
+              <object class="AdwActionRow" id="source_row">
+                <property name="icon-name">package-x-generic-symbolic</property>
+                <property name="subtitle">app/com.example.app/x86_64/stable</property>
+                <property name="title">Primary Source: Flathub</property>
               </object>
             </child>
+            <child>
+              <object class="AdwActionRow" id="category_row">
+                <property name="icon-name">tag-outline-symbolic</property>
+                <property name="subtitle">example1, example2</property>
+                <property name="title">Categories</property>
+              </object>
+            </child>
+            <child>
+              <object class="AdwActionRow" id="keyword_row">
+                <property name="icon-name">flag-filled-symbolic</property>
+                <property name="subtitle">example1, example2</property>
+                <property name="title">Keywords</property>
+              </object>
+            </child>
+            <style>
+              <class name="boxed-list"/>
+            </style>
           </object>
         </child>
       </object>
-    </child>
+    </property>
   </object>
 </interface>

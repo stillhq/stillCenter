@@ -1,0 +1,9 @@
+<gresource prefix="/org/gtk/example/icons/scalable/actions/">
+  <file preprocess="xml-stripblanks">money-symbolic.svg</file>
+</gresource>
+<gresource prefix="/org/gtk/example/icons/scalable/actions/">
+  <file preprocess="xml-stripblanks">tag-outline-symbolic.svg</file>
+</gresource>
+<gresource prefix="/org/gtk/example/icons/scalable/actions/">
+  <file preprocess="xml-stripblanks">flag-filled-symbolic.svg</file>
+</gresource>
