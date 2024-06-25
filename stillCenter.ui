@@ -167,7 +167,7 @@
                                     <child>
                                       <object class="GtkStackPage">
                                         <property name="child">
-                                          <object class="AppView" id="search_app_view">
+                                          <object class="AppGridView" id="search_app_view">
                                             <property name="max-columns">4</property>
                                           </object>
                                         </property>

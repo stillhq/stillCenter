@@ -2,7 +2,7 @@
 <!-- Created with Cambalache 0.90.2 -->
 <interface>
   <requires lib="gtk" version="4.12"/>
-  <template class="AppView" parent="GtkGridView">
+  <template class="AppGridView" parent="GtkGridView">
     <property name="factory">
       <object class="GtkBuilderListItemFactory">
         <property name="bytes">&lt;?xml version='1.0' encoding='UTF-8'?&gt;

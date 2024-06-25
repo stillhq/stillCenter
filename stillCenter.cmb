@@ -6,7 +6,8 @@
 	(4,1,None,"AppGridView.ui",None,None,None,None,None,None,None),
 	(5,1,None,"FlowAppButton.ui",None,None,None,None,None,None,None),
 	(6,1,None,"FlowApps.ui",None,None,None,None,None,None,None),
-	(7,1,None,"CategoryButtonBig.ui",None,None,None,None,None,None,None)
+	(7,1,None,"CategoryButtonBig.ui",None,None,None,None,None,None,None),
+	(8,None,None,"AppListView.ui",None,None,None,None,None,None,None)
   </ui>
   <object>
 	(1,1,"AdwApplicationWindow","window",None,None,None,None,-1,None,None),
@@ -44,9 +45,9 @@
 	(1,45,"GtkStackPage",None,44,None,None,None,-1,None,None),
 	(1,46,"AdwStatusPage",None,45,None,None,None,-1,None,None),
 	(1,47,"GtkStackPage",None,44,None,None,None,-1,None,None),
-	(1,48,"AppView","search_app_view",47,None,None,None,-1,None,None),
+	(1,48,"AppGridView","search_app_view",47,None,None,None,-1,None,None),
 	(1,49,"GtkStackPage",None,11,None,None,None,-1,None,None),
-	(4,1,"GtkGridView","AppView",None,None,None,None,-1,None,None),
+	(4,1,"GtkGridView","AppGridView",None,None,None,None,-1,None,None),
 	(4,2,"GtkBuilderListItemFactory",None,1,None,None,None,-1,None,None),
 	(5,1,"GtkButton","FlowAppButton",None,None,None,None,-1,None,None),
 	(5,2,"GtkBox",None,1,None,None,None,-1,None,None),
