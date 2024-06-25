@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<!-- Created with Cambalache 0.90.2 -->
+<!-- Created with Cambalache 0.90.3 -->
 <interface>
   <!-- interface-name stillcenter.ui -->
   <requires lib="gtk" version="4.12"/>
@@ -86,6 +86,7 @@
                                   <object class="GtkScrolledWindow">
                                     <property name="child">
                                       <object class="GtkBox">
+                                        <property name="hexpand">True</property>
                                         <property name="margin-bottom">10</property>
                                         <property name="margin-end">10</property>
                                         <property name="margin-start">10</property>
