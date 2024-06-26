@@ -12,9 +12,10 @@
         <child>
           <object class="AdwNavigationPage" id="main_page">
             <child>
-              <object class="AdwNavigationSplitView" id="split_view">
+              <object class="AdwNavigationSplitView" id="sidebar_split_view">
+                <property name="sidebar">sidebar_split</property>
                 <child>
-                  <object class="AdwNavigationPage">
+                  <object class="AdwNavigationPage" id="sidebar_split">
                     <child>
                       <object class="GtkBox" id="sidebar">
                         <property name="orientation">vertical</property>
@@ -29,7 +30,11 @@
                           </object>
                         </child>
                         <child>
-                          <object class="GtkListBox" id="main_sidebar"/>
+                          <object class="GtkListBox" id="main_sidebar">
+                            <style>
+                              <class name="navigation-sidebar"/>
+                            </style>
+                          </object>
                         </child>
                       </object>
                     </child>

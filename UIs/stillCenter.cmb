@@ -22,8 +22,8 @@
 	(1,1,"AdwApplicationWindow","window",None,None,None,None,-1,None,None),
 	(1,2,"AdwNavigationView","main_view",1,None,None,None,-1,None,None),
 	(1,3,"AdwNavigationPage","main_page",2,None,None,None,-1,None,None),
-	(1,4,"AdwNavigationSplitView","split_view",3,None,None,None,-1,None,None),
-	(1,5,"AdwNavigationPage",None,4,None,None,None,-1,None,None),
+	(1,4,"AdwNavigationSplitView","sidebar_split_view",3,None,None,None,-1,None,None),
+	(1,5,"AdwNavigationPage","sidebar_split",4,None,None,None,-1,None,None),
 	(1,6,"GtkBox","sidebar",5,None,None,None,None,None,None),
 	(1,7,"AdwHeaderBar",None,6,None,None,None,None,None,None),
 	(1,8,"AdwWindowTitle",None,7,None,None,None,None,None,None),
@@ -120,7 +120,7 @@
   <object_property>
 	(1,1,"GtkWindow","default-height","500",None,None,None,None,None,None,None,None,None),
 	(1,1,"GtkWindow","default-width","700",None,None,None,None,None,None,None,None,None),
-	(1,4,"AdwNavigationSplitView","sidebar",None,None,None,None,None,None,None,None,None,None),
+	(1,4,"AdwNavigationSplitView","sidebar","5",None,None,None,None,None,None,None,None,None),
 	(1,6,"GtkOrientable","orientation","vertical",None,None,None,None,None,None,None,None,None),
 	(1,7,"AdwHeaderBar","show-end-title-buttons","False",None,None,None,None,None,None,None,None,None),
 	(1,7,"AdwHeaderBar","title-widget",None,None,None,None,None,8,None,None,None,None),
@@ -365,7 +365,9 @@
 	(11,40,"GtkWidget",1,1,None,None,None,None,None,None),
 	(11,40,"GtkWidget",2,2,None,1,None,None,None,None),
 	(11,42,"GtkWidget",1,1,None,None,None,None,None,None),
-	(11,42,"GtkWidget",2,2,None,1,None,None,None,None)
+	(11,42,"GtkWidget",2,2,None,1,None,None,None,None),
+	(1,9,"GtkWidget",1,1,None,None,None,None,None,None),
+	(1,9,"GtkWidget",2,2,None,1,None,None,None,None)
   </object_data>
   <object_data_arg>
 	(5,5,"GtkWidget",2,2,"name","title-4"),
@@ -396,6 +398,7 @@
 	(11,37,"GtkWidget",2,2,"name","card"),
 	(11,39,"GtkWidget",2,2,"name","title-2"),
 	(11,40,"GtkWidget",2,2,"name","card"),
-	(11,42,"GtkWidget",2,2,"name","boxed-list")
+	(11,42,"GtkWidget",2,2,"name","boxed-list"),
+	(1,9,"GtkWidget",2,2,"name","navigation-sidebar")
   </object_data_arg>
 </cambalache-project>
