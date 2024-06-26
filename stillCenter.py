@@ -5,6 +5,7 @@ import gi
 gi.require_version("Gtk", "4.0")
 gi.require_version("Adw", "1")
 from gi.repository import Gtk, Adw
+import FlowApps, AppGridView, AppListView
 
 class StillCenter(Adw.Application):
     def __init__(self):
@@ -25,12 +26,13 @@ class StillCenter(Adw.Application):
         for i in range(main_stack_pages.get_n_items()):
             stack_page = main_stack_pages.get_item(i)
             sidebar_row = Gtk.ListBoxRow()
-            sidebar_row.add(Gtk.Label(label=stack_page.get_title()))
+            sidebar_row.set_child(Gtk.Label(label=stack_page.get_title(), xalign=0))
             self.sidebar_index.append(stack_page.get_name())
             self.sidebar.append(sidebar_row)
+        self.sidebar.connect("row-selected", self.sidebar_selected)
 
     def sidebar_selected(self, _listbox, row):
-        self.stack.set_visible_child_name(self.sidebar_index[row.get_index])
+        self.main_stack.set_visible_child_name(self.sidebar_index[row.get_index()])
         if self.sidebar_split.get_collapsed() and not self.sidebar_split.get_show_content():
             self.sidebar_split.set_show_content(True)
         # if self.stack.get_visible_child_name() == "search":

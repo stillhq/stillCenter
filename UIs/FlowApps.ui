@@ -33,8 +33,5 @@
         </style>
       </object>
     </child>
-    <child>
-      <object class="GtkFlowBox"/>
-    </child>
   </template>
 </interface>
