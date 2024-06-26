@@ -94,8 +94,8 @@ def refresh_app_store():
     apps_columns = db.c.fetchall()
 
     for app in apps_columns:
-        categories = app[4]
-        keywords = app[5]
+        categories = app[4].split(",")
+        keywords = app[5].split(",")
 
         app_item = AppItem(app[0], app[1], app[2], app[3])
 
@@ -108,8 +108,8 @@ def refresh_installed_store():
     apps_columns = db.c.fetchall()
 
     for app in apps_columns:
-        categories = app[4]
-        keywords = app[5]
+        categories = app[4].split(",")
+        keywords = app[5].split(",")
 
         app_item = AppItem.new_installed(app[0], app[1], app[2], app[3], True, app[6])
 

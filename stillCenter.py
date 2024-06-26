@@ -26,10 +26,14 @@ class StillCenter(Adw.Application):
         for i in range(main_stack_pages.get_n_items()):
             stack_page = main_stack_pages.get_item(i)
             sidebar_row = Gtk.ListBoxRow()
-            sidebar_row.set_child(Gtk.Label(label=stack_page.get_title(), xalign=0))
+            label = Gtk.Label(label=stack_page.get_title(), xalign=0)
+            sidebar_row.set_child(label)
             self.sidebar_index.append(stack_page.get_name())
             self.sidebar.append(sidebar_row)
         self.sidebar.connect("row-selected", self.sidebar_selected)
+
+        # Set IDs of Flowboxes for Featured Apps
+        self.builder.get_object("essentials").set_apps(self.builder, "essentials", "Essentials")
 
     def sidebar_selected(self, _listbox, row):
         self.main_stack.set_visible_child_name(self.sidebar_index[row.get_index()])

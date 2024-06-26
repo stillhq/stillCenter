@@ -2,6 +2,7 @@
 <!-- Created with Cambalache 0.90.3 -->
 <interface>
   <requires lib="gtk" version="4.6"/>
+  <requires lib="libadwaita" version="1.0"/>
   <template class="FlowApps" parent="GtkBox">
     <property name="margin-bottom">5</property>
     <property name="margin-end">5</property>
@@ -11,6 +12,7 @@
     <child>
       <object class="GtkLabel" id="label">
         <property name="label" translatable="yes">Flowbox Label</property>
+        <property name="margin-bottom">5</property>
         <property name="xalign">0.0</property>
         <style>
           <class name="title-1"/>
@@ -18,16 +20,20 @@
       </object>
     </child>
     <child>
-      <object class="GtkScrolledWindow">
-        <property name="has-frame">True</property>
-        <property name="vscrollbar-policy">never</property>
-        <child>
-          <object class="GtkFlowBox" id="flowbox">
-            <property name="height-request">100</property>
-            <property name="max-children-per-line">4</property>
-            <property name="min-children-per-line">4</property>
+      <object class="AdwBin">
+        <property name="child">
+          <object class="GtkScrolledWindow">
+            <property name="vscrollbar-policy">never</property>
+            <child>
+              <object class="GtkFlowBox" id="flowbox">
+                <property name="height-request">100</property>
+                <property name="homogeneous">True</property>
+                <property name="max-children-per-line">4</property>
+                <property name="min-children-per-line">4</property>
+              </object>
+            </child>
           </object>
-        </child>
+        </property>
         <style>
           <class name="card"/>
         </style>
