@@ -6,7 +6,7 @@ gi.require_version("Gtk", "4.0")
 gi.require_version("Adw", "1")
 from gi.repository import Gtk, Adw
 from CategoryButtonBig import CategoryButtonBig
-import AppStore, FlowApps, AppGridView, AppListView
+import AppStore, AppPage, FlowApps, AppGridView, AppListView
 
 class StillCenter(Adw.Application):
     def __init__(self):
@@ -35,7 +35,7 @@ class StillCenter(Adw.Application):
         self.sidebar.connect("row-selected", self.sidebar_selected)
 
         # Set IDs of Flowboxes for Featured Apps
-        self.builder.get_object("essentials").set_apps(self.builder, "essentials", "Essentials")
+        self.builder.get_object("essentials").set_apps(self, "essentials", "Essentials")
 
         # Populating Categories
         self.categories_flowbox.append(
@@ -72,6 +72,9 @@ class StillCenter(Adw.Application):
         # Set models of ListViews
         self.builder.get_object("available_updates").set_store(AppStore.INSTALLED_STORE["update"])
         self.builder.get_object("installed").set_store(AppStore.INSTALLED_STORE["no_update"])
+
+        # Loading base app page
+        self.app_page = AppPage.AppPage(self)
 
     def sidebar_selected(self, _listbox, row):
         self.main_stack.set_visible_child_name(self.sidebar_index[row.get_index()])
