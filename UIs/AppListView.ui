@@ -135,5 +135,8 @@
 &lt;/interface&gt;</property>
       </object>
     </property>
+    <style>
+      <class name="card"/>
+    </style>
   </template>
 </interface>

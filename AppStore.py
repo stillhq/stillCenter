@@ -7,7 +7,7 @@ from gi.repository import Gio, Gtk, GObject, GLib
 import sadb.database
 
 STORE = {"all": Gio.ListStore()}
-INSTALLED_STORE = {"all": Gio.ListStore()}
+INSTALLED_STORE = {"installed": Gio.ListStore(), "update": Gio.ListStore(), "no_update": Gio.ListStore()}
 
 
 class AppItem(GObject.Object):
@@ -99,7 +99,15 @@ def refresh_app_store():
 
         app_item = AppItem(app[0], app[1], app[2], app[3])
 
-        add_app_to_store(STORE, app_item, categories, keywords)
+        for category in categories:
+            if category not in STORE.keys():
+                STORE[category] = Gio.ListStore()
+            STORE[category].append(app_item)
+        for keyword in keywords:
+            if keyword not in STORE.keys():
+                STORE[keyword] = Gio.ListStore()
+            STORE[keyword].append(app_item)
+        STORE["all"].append(app_item)
 
 
 def refresh_installed_store():
@@ -108,21 +116,10 @@ def refresh_installed_store():
     apps_columns = db.c.fetchall()
 
     for app in apps_columns:
-        categories = app[4].split(",")
-        keywords = app[5].split(",")
-
         app_item = AppItem.new_installed(app[0], app[1], app[2], app[3], True, app[6])
 
-        add_app_to_store(INSTALLED_STORE, app_item, categories, keywords)
-
-
-def add_app_to_store(store, app_item, categories, keywords):
-    for category in categories:
-        if category not in store.keys():
-            store[category] = Gio.ListStore()
-        store[category].append(app_item)
-    for keyword in keywords:
-        if keyword not in store.keys():
-            store[keyword] = Gio.ListStore()
-        store[keyword].append(app_item)
-    store["all"].append(app_item)
+        INSTALLED_STORE["installed"].append(app_item)
+        if app[6]:
+            INSTALLED_STORE["update"].append(app_item)
+        else:
+            INSTALLED_STORE["no_update"].append(app_item)
