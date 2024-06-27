@@ -1,6 +1,7 @@
 import os
 import shutil
 from typing import Optional
+from urllib.parse import urlparse, unquote
 
 import gi
 from gi.overrides.GdkPixbuf import GdkPixbuf
@@ -64,7 +65,7 @@ class UrlImage(Gtk.Picture):
         if message.get_status() != Soup.Status.OK:
             raise Exception(f"Got {message.get_status()}, {message.get_reason_phrase()}")
 
-        with open(SAVE_PATH, "wb") as f:
+        with open(self.image_path, "wb") as f:
             f.write(bytes.get_data())
 
         texture = Gdk.Texture.new_from_bytes(bytes)
@@ -72,10 +73,15 @@ class UrlImage(Gtk.Picture):
 
     def set_image_url(self, app_id, url):
         self.image_path = get_file_name_from_url(url, app_id, self.image_dir)
+
+        if os.path.exists(self.image_path) or self.image_path is None:
+            self.set_filename(self.image_path)
+            return
+
         session = Soup.Session()
         message = Soup.Message(
             method="GET",
-            uri=GLib.Uri.parse(url, GLib.UriFlags.NONE),
+            uri=GLib.Uri.parse(url, GLib.UriFlags.NONE)
         )
         session.send_and_read_async(
             message, GLib.PRIORITY_DEFAULT, None, self.on_receive_bytes, message
@@ -83,43 +89,10 @@ class UrlImage(Gtk.Picture):
 
 
 def get_file_name_from_url(url: Optional[str], app_id: str, base_dir: str) -> Optional[str]:
-    """
-    This function gets the filename from the end of a URL.
-
-    :param url: The url from which to extract the filename.
-    :param app_id: id of the app for the file name
-    :param base_dir: directory the file is inside
-    :return: The filename extracted from the url.
-    """
     if url == "" or url is None:
-        return "/usr/share/icons/AdwaitaLegacy/48x48/status/image-missing.png"
-    if os.path.exists(url):
-        return url
-
-
-    # Parse the url to get the path
-    path = urlparse(url).path
-
-    # Get the file name from the path
-    try:
-        filename = unquote(path.split('/')[-1])
-    except TypeError:
         return None
-
-    return os.path.join(base_dir, f"{app_id}-{filename}")def get_file_name_from_url(url: Optional[str], app_id: str, base_dir: str) -> Optional[str]:
-    """
-    This function gets the filename from the end of a URL.
-
-    :param url: The url from which to extract the filename.
-    :param app_id: id of the app for the file name
-    :param base_dir: directory the file is inside
-    :return: The filename extracted from the url.
-    """
-    if url == "" or url is None:
-        return "/usr/share/icons/AdwaitaLegacy/48x48/status/image-missing.png"
     if os.path.exists(url):
         return url
-
 
     # Parse the url to get the path
     path = urlparse(url).path

@@ -11,10 +11,12 @@
         <property name="spacing">15</property>
         <property name="valign">start</property>
         <child>
-          <object class="GtkImage" id="icon">
-            <property name="icon-name">image-missing-symbolic</property>
-            <property name="pixel-size">72</property>
-            <property name="valign">center</property>
+          <object class="UrlImage" id="icon">
+            <property name="height-request">64</property>
+            <property name="margin-bottom">4</property>
+            <property name="margin-top">4</property>
+            <property name="width-request">64</property>
+            <style/>
           </object>
         </child>
         <child>

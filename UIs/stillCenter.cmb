@@ -11,7 +11,7 @@
 	(9,None,None,"LoadingPage.ui",None,None,None,None,None,None,None),
 	(10,None,None,"AppGridPage.ui",None,None,None,None,None,None,None),
 	(11,None,None,"AppPage.ui",None,None,None,None,None,None,None),
-	(12,None,None,"UrlImage.ui",None,None,None,None,None,None,None)
+	(12,1,None,"UrlImage.ui",None,None,None,None,None,None,None)
   </ui>
   <css>
 	(1,"stillRatingColors.css",None,None)
@@ -68,10 +68,10 @@
 	(4,2,"GtkBuilderListItemFactory",None,1,None,None,None,-1,None,None),
 	(5,1,"GtkButton","FlowAppButton",None,None,None,None,-1,None,None),
 	(5,2,"GtkBox",None,1,None,None,None,-1,None,None),
-	(5,3,"GtkImage","icon",2,None,None,None,-1,None,None),
-	(5,4,"GtkBox",None,2,None,None,None,-1,None,None),
+	(5,4,"GtkBox",None,2,None,None,None,1,None,None),
 	(5,5,"GtkLabel","name_label",4,None,None,None,-1,None,None),
 	(5,6,"GtkLabel","author_label",4,None,None,None,-1,None,None),
+	(5,7,"UrlImage","icon",2,None,None,None,None,None,None),
 	(6,1,"GtkBox","FlowApps",None,None,None,None,-1,None,None),
 	(6,2,"GtkLabel","label",1,None,None,None,-1,None,None),
 	(6,5,"AdwBin",None,1,None,None,None,-1,None,None),
@@ -117,7 +117,7 @@
 	(11,45,"AdwActionRow","source_row",42,None,None,None,2,None,None),
 	(11,46,"AdwActionRow","category_row",42,None,None,None,3,None,None),
 	(11,47,"AdwActionRow","keyword_row",42,None,None,None,4,None,None),
-	(12,1,"GtkImage",None,None,None,None,None,-1,None,None)
+	(12,1,"GtkPicture","UrlImage",None,None,None,None,-1,None,None)
   </object>
   <object_property>
 	(1,1,"GtkWindow","default-height","500",None,None,None,None,None,None,None,None,None),
@@ -213,9 +213,6 @@
 	(5,2,"GtkBox","spacing","15",None,None,None,None,None,None,None,None,None),
 	(5,2,"GtkWidget","halign","start",None,None,None,None,None,None,None,None,None),
 	(5,2,"GtkWidget","valign","start",None,None,None,None,None,None,None,None,None),
-	(5,3,"GtkImage","icon-name","image-missing-symbolic",None,None,None,None,None,None,None,None,None),
-	(5,3,"GtkImage","pixel-size","72",None,None,None,None,None,None,None,None,None),
-	(5,3,"GtkWidget","valign","center",None,None,None,None,None,None,None,None,None),
 	(5,4,"GtkOrientable","orientation","vertical",None,None,None,None,None,None,None,None,None),
 	(5,5,"GtkLabel","ellipsize","start",None,None,None,None,None,None,None,None,None),
 	(5,5,"GtkLabel","label","App Name",None,None,None,None,None,None,None,None,None),
@@ -228,6 +225,10 @@
 	(5,6,"GtkLabel","lines","1",None,None,None,None,None,None,None,None,None),
 	(5,6,"GtkLabel","xalign","0.0",None,None,None,None,None,None,None,None,None),
 	(5,6,"GtkWidget","margin-top","5",None,None,None,None,None,None,None,None,None),
+	(5,7,"GtkWidget","height-request","64",None,None,None,None,None,None,None,None,None),
+	(5,7,"GtkWidget","margin-bottom","4",None,None,None,None,None,None,None,None,None),
+	(5,7,"GtkWidget","margin-top","4",None,None,None,None,None,None,None,None,None),
+	(5,7,"GtkWidget","width-request","64",None,None,None,None,None,None,None,None,None),
 	(6,1,"GtkOrientable","orientation","vertical",None,None,None,None,None,None,None,None,None),
 	(6,1,"GtkWidget","margin-bottom","5",None,None,None,None,None,None,None,None,None),
 	(6,1,"GtkWidget","margin-end","5",None,None,None,None,None,None,None,None,None),
@@ -330,7 +331,8 @@
 	(11,46,"AdwPreferencesRow","title","Categories",None,None,None,None,None,None,None,None,None),
 	(11,47,"AdwActionRow","icon-name","flag-filled-symbolic",None,None,None,None,None,None,None,None,None),
 	(11,47,"AdwActionRow","subtitle","example1, example2",None,None,None,None,None,None,None,None,None),
-	(11,47,"AdwPreferencesRow","title","Keywords",None,None,None,None,None,None,None,None,None)
+	(11,47,"AdwPreferencesRow","title","Keywords",None,None,None,None,None,None,None,None,None),
+	(12,1,"GtkPicture","content-fit","scale-down",None,None,None,None,None,None,None,None,None)
   </object_property>
   <object_data>
 	(5,5,"GtkWidget",1,1,None,None,None,None,None,None),
@@ -398,7 +400,8 @@
 	(1,66,"GtkWidget",1,1,None,None,None,None,None,None),
 	(1,66,"GtkWidget",2,2,None,1,None,None,None,None),
 	(8,1,"GtkWidget",1,1,None,None,None,None,None,None),
-	(8,1,"GtkWidget",2,2,None,1,None,None,None,None)
+	(8,1,"GtkWidget",2,2,None,1,None,None,None,None),
+	(5,7,"GtkWidget",1,1,None,None,None,None,None,None)
   </object_data>
   <object_data_arg>
 	(5,5,"GtkWidget",2,2,"name","title-4"),
