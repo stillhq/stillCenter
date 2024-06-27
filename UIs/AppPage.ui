@@ -9,6 +9,7 @@
         <property name="orientation">vertical</property>
         <child>
           <object class="AdwHeaderBar">
+            <property name="show-title">False</property>
             <style>
               <class name="flat"/>
             </style>
@@ -27,9 +28,9 @@
                   <object class="GtkBox">
                     <property name="spacing">10</property>
                     <child>
-                      <object class="GtkImage" id="icon">
-                        <property name="icon-name">image-missing-symbolic</property>
-                        <property name="pixel-size">128</property>
+                      <object class="UrlImage" id="icon">
+                        <property name="height-request">128</property>
+                        <property name="width-request">128</property>
                       </object>
                     </child>
                     <child>
@@ -41,21 +42,21 @@
                         <property name="spacing">5</property>
                         <property name="valign">center</property>
                         <child>
+                          <object class="GtkLabel" id="name_label">
+                            <property name="label">App Name</property>
+                            <property name="xalign">0.0</property>
+                            <style>
+                              <class name="title-1"/>
+                            </style>
+                          </object>
+                        </child>
+                        <child>
                           <object class="GtkLabel" id="author_label">
                             <property name="label">App Author</property>
                             <property name="xalign">0.0</property>
                             <style>
                               <class name="title-4"/>
                               <class name="dim-label"/>
-                            </style>
-                          </object>
-                        </child>
-                        <child>
-                          <object class="GtkLabel" id="name_label">
-                            <property name="label">App Name</property>
-                            <property name="xalign">0.0</property>
-                            <style>
-                              <class name="title-1"/>
                             </style>
                           </object>
                         </child>
@@ -120,7 +121,7 @@
                   </object>
                 </child>
                 <child>
-                  <object class="GtkScrolledWindow">
+                  <object class="GtkScrolledWindow" id="screenshot_scroll">
                     <property name="hscrollbar-policy">never</property>
                     <property name="margin-top">10</property>
                     <property name="valign">start</property>
@@ -133,8 +134,9 @@
                   </object>
                 </child>
                 <child>
-                  <object class="GtkLabel" id="summary">
+                  <object class="GtkLabel" id="summary_label">
                     <property name="label">App Summary</property>
+                    <property name="margin-top">20</property>
                     <property name="xalign">0.0</property>
                     <style>
                       <class name="title-2"/>
@@ -205,9 +207,12 @@
                 </child>
               </object>
             </property>
+            <property name="hexpand">True</property>
+            <property name="vexpand">True</property>
           </object>
         </child>
       </object>
     </property>
+    <property name="title">App Page</property>
   </object>
 </interface>

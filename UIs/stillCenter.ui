@@ -75,10 +75,18 @@
                                         <property name="orientation">vertical</property>
                                         <property name="spacing">15</property>
                                         <child>
-                                          <object class="FlowApps" id="essentials"/>
+                                          <object class="FlowApps" id="essentials">
+                                            <!-- Custom object fragments -->
+                                            <property name="tag">essentials</property>
+                                            <property name="title">Essentials</property>
+                                          </object>
                                         </child>
                                         <child>
-                                          <object class="FlowApps" id="ourpicks"/>
+                                          <object class="FlowApps" id="webbrowser">
+                                            <!-- Custom object fragments -->
+                                            <property name="tag">WebBrowser</property>
+                                            <property name="title">Grab your favorite browser</property>
+                                          </object>
                                         </child>
                                         <child>
                                           <object class="FlowApps" id="usedforstillos"/>

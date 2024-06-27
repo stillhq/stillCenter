@@ -35,7 +35,7 @@ class StillCenter(Adw.Application):
         self.sidebar.connect("row-selected", self.sidebar_selected)
 
         # Set IDs of Flowboxes for Featured Apps
-        self.builder.get_object("essentials").set_apps(self, "essentials", "Essentials")
+        FlowApps.set_stillcenter(self)
 
         # Populating Categories
         self.categories_flowbox.append(

@@ -74,7 +74,10 @@ class UrlImage(Gtk.Picture):
     def set_image_url(self, app_id, url):
         self.image_path = get_file_name_from_url(url, app_id, self.image_dir)
 
-        if os.path.exists(self.image_path) or self.image_path is None:
+        if self.image_path is None:
+            return
+
+        if os.path.exists(self.image_path):
             self.set_filename(self.image_path)
             return
 
