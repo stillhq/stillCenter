@@ -13,13 +13,20 @@ class CategoryButtonBig(Gtk.Button):
     __gtype_name__ = "CategoryButtonBig"
 
     category: str = None
+    title: str = None
     label: Gtk.Label = Gtk.Template.Child()
     icon: Gtk.Image = Gtk.Template.Child()
-    builder: Gtk.Builder = None
+    stillCenter = None
 
-    def __init__(self, builder: Gtk.Builder, category: str, title: str, icon: str):
+    def __init__(self, stillCenter, category: str, title: str, icon: str):
         super().__init__()
         self.category = category
-        self.builder = builder
+        self.title = title
+        self.stillCenter = stillCenter
         self.label.set_label(title)
         self.icon.set_from_icon_name(icon)
+
+        self.connect("clicked", self.clicked)
+
+    def clicked(self, button):
+        self.stillCenter.category_page.push_category(self.category, self.title)

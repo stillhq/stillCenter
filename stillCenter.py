@@ -1,3 +1,4 @@
+import CategoryPage
 import constants
 import os
 import gi
@@ -6,7 +7,7 @@ gi.require_version("Gtk", "4.0")
 gi.require_version("Adw", "1")
 from gi.repository import Gtk, Adw
 from CategoryButtonBig import CategoryButtonBig
-import AppStore, AppPage, FlowApps, AppGridView, AppListView
+import AppStore, AppPage, FlowApps, AppGridView, AppListView, CategoryPage
 
 class StillCenter(Adw.Application):
     def __init__(self):
@@ -39,42 +40,43 @@ class StillCenter(Adw.Application):
 
         # Populating Categories
         self.categories_flowbox.append(
-            CategoryButtonBig(self.builder, "Audio", "Audio", "audio-x-generic-symbolic")
+            CategoryButtonBig(self, "Audio", "Audio", "audio-x-generic-symbolic")
         )
         self.categories_flowbox.append(
-            CategoryButtonBig(self.builder, "Development", "Development", "applications-engineering-symbolic")
+            CategoryButtonBig(self, "Development", "Development", "applications-engineering-symbolic")
         )
         self.categories_flowbox.append(
-            CategoryButtonBig(self.builder, "Education", "Education", "accessories-dictionary-symbolic")
+            CategoryButtonBig(self, "Education", "Education", "accessories-dictionary-symbolic")
         )
         self.categories_flowbox.append(
-            CategoryButtonBig(self.builder, "Game", "Games", "applications-games-symbolic")
+            CategoryButtonBig(self, "Game", "Games", "applications-games-symbolic")
         )
         self.categories_flowbox.append(
-            CategoryButtonBig(self.builder, "Graphics", "Graphics", "applications-graphics-symbolic")
+            CategoryButtonBig(self, "Graphics", "Graphics", "applications-graphics-symbolic")
         )
         self.categories_flowbox.append(
-            CategoryButtonBig(self.builder, "Network", "Network", "preferences-system-network-symbolic")
+            CategoryButtonBig(self, "Network", "Network", "preferences-system-network-symbolic")
         )
         self.categories_flowbox.append(
-            CategoryButtonBig(self.builder, "Office", "Office", "applications-office-symbolic")
+            CategoryButtonBig(self, "Office", "Office", "applications-office-symbolic")
         )
         self.categories_flowbox.append(
-            CategoryButtonBig(self.builder, "Utility", "Utilities", "applications-utilities-symbolic")
+            CategoryButtonBig(self, "Utility", "Utilities", "applications-utilities-symbolic")
         )
         self.categories_flowbox.append(
-            CategoryButtonBig(self.builder, "Video", "Video", "applications-multimedia-symbolic")
+            CategoryButtonBig(self, "Video", "Video", "applications-multimedia-symbolic")
         )
         self.categories_flowbox.append(
-            CategoryButtonBig(self.builder, "System", "System", "preferences-other-symbolic")
+            CategoryButtonBig(self, "System", "System", "preferences-other-symbolic")
         )
 
         # Set models of ListViews
         self.builder.get_object("available_updates").set_store(AppStore.INSTALLED_STORE["update"])
         self.builder.get_object("installed").set_store(AppStore.INSTALLED_STORE["no_update"])
 
-        # Loading base app page
+        # Loading base pages
         self.app_page = AppPage.AppPage(self)
+        self.category_page = CategoryPage.CategoryPage(self)
 
     def sidebar_selected(self, _listbox, row):
         self.main_stack.set_visible_child_name(self.sidebar_index[row.get_index()])
