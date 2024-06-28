@@ -3,6 +3,27 @@ import os
 UI_DIR = os.path.join(os.path.dirname(__file__), "UIs")
 
 SUBCATEGORIES = {
+    "Audio": [
+        ("Player", "Audio Players"),
+        ("Recorder", "Audio Recording"),
+        ("AudioVideoEditing", "Audio Editing"),
+        ("Midi", "Midi"),
+        ("Mixing", "Mixing"),
+        ("Sequencer", "Sequencers"),
+        ("Tuner", "Tuning"),
+        ("DiscBurning", "Burning"),
+        ("Music", "Music")
+    ],
+    "Development": [
+        ("Building", "Building"),
+        ("Debugger", "Debugging"),
+        ("IDE", "IDEs"),
+        ("GUIDesigner", "GUI Designers"),
+        ("Profiling", "Profiling"),
+        ("RevisionControl", "Version Control"),
+        ("WebDevelopment", "Web Development"),
+        ("Translation", "Translation")
+    ],
     "Education": [
         ("Art", "Art"),
         ("Construction", "Construction"),
@@ -33,7 +54,6 @@ SUBCATEGORIES = {
         ("Sports", "Sports"),
         ("ParallelComputing", "Parallel Computing")
     ],
-
     "Game": [
         ("ActionGame", "Action"),
         ("AdventureGame", "Adventure"),
@@ -49,7 +69,6 @@ SUBCATEGORIES = {
         ("SportsGame", "Sports"),
         ("StrategyGame", "Strategy")
     ],
-
     "Graphics": [
         ("2DGraphics", "2D Graphics"),
         ("VectorGraphics", "Vector Graphics"),
@@ -61,7 +80,6 @@ SUBCATEGORIES = {
         ("Publishing", "Publishing"),
         ("Viewer", "Viewer")
     ],
-
     "Network": [
         ("InstantMessaging", "Instant Messaging"),
         ("Chat", "Chatting"),
@@ -76,7 +94,6 @@ SUBCATEGORIES = {
         ("VideoConference", "Video Conference"),
         ("WebBrowser", "Web Browser")
     ],
-
     "Office": [
         ("Calendar", "Calendars"),
         ("ContactManagement", "Contact Management"),
@@ -92,7 +109,6 @@ SUBCATEGORIES = {
         ("Spreadsheet", "Spreadsheets"),
         ("WordProcessor", "Word Processors")
     ],
-
     "Utility": [
         ("TextTools", "Text Tools"),
         ("Calculator", "Calculators"),
@@ -102,7 +118,6 @@ SUBCATEGORIES = {
         ("Accessibility", "Accessibility"),
         ("ConsoleOnly", "Terminal Apps")
     ],
-
     "Video": [
         ("Player", "Video Players"),
         ("Recorder", "Video Recording"),
@@ -110,7 +125,6 @@ SUBCATEGORIES = {
         ("TV", "TV"),
         ("DiscBurning", "Disc Burning")
     ],
-
     "System": [
         ("DesktopSettings", "Desktop Settings"),
         ("HardwareSettings", "Hardware Settings"),

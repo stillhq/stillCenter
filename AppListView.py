@@ -11,9 +11,15 @@ import constants
 @Gtk.Template(filename=os.path.join(constants.UI_DIR, "AppListView.ui"))
 class AppListView(Gtk.ListView):
     __gtype_name__ = "AppListView"
+    stillCenter = None
 
     def __init__(self):
         super().__init__()
+        self.connect("activate", self.activate)
 
-    def set_store(self, model: Gtk.ListStore):
+    def set_store(self, stillCenter, model: Gtk.ListStore):
+        self.stillCenter = stillCenter
         self.set_model(Gtk.NoSelection.new(model))
+
+    def activate(self, _app_list_view, index):
+        self.stillCenter.app_page.show_app(self.get_model().get_item(index).app_id)

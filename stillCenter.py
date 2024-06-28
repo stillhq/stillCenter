@@ -71,8 +71,8 @@ class StillCenter(Adw.Application):
         )
 
         # Set models of ListViews
-        self.builder.get_object("available_updates").set_store(AppStore.INSTALLED_STORE["update"])
-        self.builder.get_object("installed").set_store(AppStore.INSTALLED_STORE["no_update"])
+        self.builder.get_object("available_updates").set_store(self, AppStore.INSTALLED_STORE["update"])
+        self.builder.get_object("installed").set_store(self, AppStore.INSTALLED_STORE["no_update"])
 
         # Loading base pages
         self.app_page = AppPage.AppPage(self)

@@ -44,20 +44,24 @@ class CategoryPage(Adw.NavigationPage):
                 child = self.subcategory_button_box.get_first_child()
 
             if category in constants.SUBCATEGORIES.keys():
-                for subcategory in AppStore.SUBCATEGORIES[category]:
-                    button = Gtk.Button(label=subcategory[1])
-                    button.connect("clicked", self.on_subcategory_clicked, subcategory[0], subcategory[1])
-                    self.subcategory_button_box.append(button)
+                self.subcategory_button_box.set_visible(True)
+                for subcategory in constants.SUBCATEGORIES[category]:
+                    if subcategory[0] in AppStore.STORE.keys():
+                        button = Gtk.Button(label=subcategory[1])
+                        button.connect("clicked", self.on_subcategory_clicked, subcategory[0], subcategory[1])
+                        self.subcategory_button_box.append(button)
+            else:
+                self.subcategory_button_box.set_visible(False)
 
         main_view = self.stillCenter.builder.get_object("main_view")
         main_view.push(self)
 
     def on_subcategory_clicked(self, button, subcategory, title):
-        CategoryPage.new_for_subcategory(self.stillCenter, subcategory, title)
+        CategoryPage.push_subcategory(self.stillCenter, subcategory, title)
 
     @classmethod
     def push_subcategory(cls, stillCenter, category, title):
         page = cls(stillCenter)
         page.main_category_page = False
-        page.set_category(category, title)
+        page.push_category(category, title)
         return page

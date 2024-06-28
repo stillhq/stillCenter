@@ -31,6 +31,7 @@ os.makedirs(_SCREENSHOT_DIR)
 class UrlImage(Gtk.Picture):
     __gtype_name__ = "UrlImage"
     _screenshot: bool = False
+    _image_url: str = ""
     image_dir = _ICON_DIR
     image_path = ""
 
@@ -49,27 +50,38 @@ class UrlImage(Gtk.Picture):
         else:
             self.image_dir = _ICON_DIR
 
+    @GObject.Property(type=str)
+    def image_url(self):
+        return self._image_url
+
+    @image_url.setter
+    def image_url(self, value):
+        self._image_url = value
+        self.set_image_url("app", value)
+
     def clear_image(self):
         self.set_paintable(
             Gtk.IconTheme.get_for_display(
                 Gdk.Display.get_default()
             ).lookup_icon(
-                "image-missing-symbolic",
-                self.get_paintable().get_intrinsic_width(),
-                0, 1, Gtk.TextDirection.NONE
+                "image-missing-symbolic", [],
+                64, 1, 1, Gtk.TextDirection.NONE
             )
         )
 
     def on_receive_bytes(self, session, result, message):
         bytes = session.send_and_read_finish(result)
         if message.get_status() != Soup.Status.OK:
-            raise Exception(f"Got {message.get_status()}, {message.get_reason_phrase()}")
+            self.clear_image()
 
         with open(self.image_path, "wb") as f:
             f.write(bytes.get_data())
 
-        texture = Gdk.Texture.new_from_bytes(bytes)
-        self.set_paintable(texture)
+        try:
+            texture = Gdk.Texture.new_from_bytes(bytes)
+            self.set_paintable(texture)
+        except GLib.Error:
+            self.clear_image()
 
     def set_image_url(self, app_id, url):
         self.image_path = get_file_name_from_url(url, app_id, self.image_dir)
@@ -82,10 +94,15 @@ class UrlImage(Gtk.Picture):
             return
 
         session = Soup.Session()
-        message = Soup.Message(
-            method="GET",
-            uri=GLib.Uri.parse(url, GLib.UriFlags.NONE)
-        )
+        try:
+            message = Soup.Message(
+                method="GET",
+                uri=GLib.Uri.parse(url, GLib.UriFlags.NONE)
+            )
+        except GLib.GError:
+            self.clear_image()
+            return
+
         session.send_and_read_async(
             message, GLib.PRIORITY_DEFAULT, None, self.on_receive_bytes, message
         )
