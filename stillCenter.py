@@ -22,6 +22,9 @@ class StillCenter(Adw.Application):
         self.sidebar_split = self.builder.get_object("sidebar_split_view")
         self.main_stack = self.builder.get_object("main_stack")
         self.categories_flowbox = self.builder.get_object("categories_flowbox")
+        self.search_stack = self.builder.get_object("search_stack")
+        self.search_app_list = self.builder.get_object("search_app_list")
+        self.search_entry = self.builder.get_object("search_entry")
 
         # Setting up the sidebar
         self.sidebar_index = []
@@ -58,7 +61,7 @@ class StillCenter(Adw.Application):
             CategoryButtonBig(self, "Network", "Network", "preferences-system-network-symbolic")
         )
         self.categories_flowbox.append(
-            CategoryButtonBig(self, "Office", "Office", "applications-office-symbolic")
+            CategoryButtonBig(self, "Office", "Office", "x-office-document-symbolic")
         )
         self.categories_flowbox.append(
             CategoryButtonBig(self, "Utility", "Utilities", "applications-utilities-symbolic")
@@ -69,6 +72,9 @@ class StillCenter(Adw.Application):
         self.categories_flowbox.append(
             CategoryButtonBig(self, "System", "System", "preferences-other-symbolic")
         )
+
+        # Setup search
+        self.builder.get_object("search_entry").connect("changed", self.search_changed)
 
         # Set models of ListViews
         self.builder.get_object("available_updates").set_store(self, AppStore.INSTALLED_STORE["update"])
@@ -82,8 +88,17 @@ class StillCenter(Adw.Application):
         self.main_stack.set_visible_child_name(self.sidebar_index[row.get_index()])
         if self.sidebar_split.get_collapsed() and not self.sidebar_split.get_show_content():
             self.sidebar_split.set_show_content(True)
-        # if self.stack.get_visible_child_name() == "search":
-        #     self.stack.get_visible_child().reset()
+        # if self.main_stack.get_visible_child_name() == "search":
+        #     self.main_stack.get_visible_child().reset()
+
+    def search_changed(self, entry):
+        if len(entry.get_text().strip()) > 0:
+            self.search_app_list.set_store(self, AppStore.search_algorithm(entry.get_text()))
+            self.search_stack.set_visible_child_name("results")
+        else:
+            self.search_stack.set_visible_child_name("search_placeholder")
+
+
 
     def do_activate(self):
         self.window.set_application(self)

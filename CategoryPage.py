@@ -33,7 +33,7 @@ class CategoryPage(Adw.NavigationPage):
 
     def push_category(self, category, title):
         self.category_title.set_label(title)
-        self.app_grid.set_model(Gtk.NoSelection.new(AppStore.STORE[category]))
+        self.app_grid.set_store(self, AppStore.STORE[category])
 
         # Clear the subcategory buttons
         if self.main_category_page:

@@ -1,4 +1,5 @@
 import os
+from typing import List
 
 import gi
 gi.require_version("Gtk", "4.0")
@@ -9,6 +10,14 @@ import sadb.database
 STORE = {"all": Gio.ListStore()}
 INSTALLED_STORE = {"installed": Gio.ListStore(), "update": Gio.ListStore(), "no_update": Gio.ListStore()}
 
+COLUMN_POINTS = {
+    "name": 10,
+    "src_pkg_name": 10,
+    "author": 10,
+    "summary": 5,
+    "description": 3,
+    "keywords": 5
+}
 
 class AppItem(GObject.Object):
     __gtype_name__ = "AppItem"
@@ -123,3 +132,32 @@ def refresh_installed_store():
             INSTALLED_STORE["update"].append(app_item)
         else:
             INSTALLED_STORE["no_update"].append(app_item)
+
+def search_algorithm(query: str) -> List[AppItem]:
+    scores = {}
+    apps = {}
+
+    db = sadb.database.get_readable_db()
+
+    for column, weight in COLUMN_POINTS.items():
+        # Exact match
+        for row in db.c.execute(f"SELECT id, name, author, icon_url FROM apps WHERE LOWER({column})=LOWER(?)", (query,)):
+            scores[row[0]] = weight * 2
+            if not row[0] in apps.keys():
+                apps[row[0]] = AppItem(row[0], row[1], row[2], row[3])
+            continue
+
+        # Substring match (case-insensitive)
+        for row in db.c.execute(f"SELECT id, name, author, icon_url FROM apps WHERE INSTR(LOWER({column}), LOWER(?)) > 0", (query,)):
+            scores[row[0]] = scores.get(row[0], 0) + weight
+            if not row[0] in apps.keys():
+                apps[row[0]] = AppItem(row[0], row[1], row[2], row[3])
+
+    # Sort the scores in descending order
+    sorted_scores = sorted(scores.items(), key=lambda item: item[1], reverse=True)
+    list_store = Gio.ListStore()
+    for app in apps.values():
+        list_store.append(app)
+
+    # Retrieve the apps from the database
+    return list_store
