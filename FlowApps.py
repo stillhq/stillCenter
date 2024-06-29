@@ -16,6 +16,10 @@ def set_stillcenter(stillCenter):
     for flow_app in flow_apps:
         flow_app.stillCenter = stillCenter
 
+def populate_apps():
+    for flow_app in flow_apps:
+        flow_app.populate_apps()
+
 @Gtk.Template(filename=os.path.join(constants.UI_DIR, "FlowAppButton.ui"))
 class FlowAppButton(Gtk.Button):
     __gtype_name__ = "FlowAppButton"
@@ -58,6 +62,9 @@ class FlowApps(Gtk.Box):
     @tag.setter
     def tag(self, value):
         self._tag = value
+
+    def populate_apps(self):
+        self.flowbox.remove_all()
         for item in AppStore.STORE[self._tag][:8]:
             self.flowbox.append(
                 FlowAppButton(self, item.app_id, item.name, item.author, item.icon)

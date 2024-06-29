@@ -32,6 +32,7 @@ class UrlImage(Gtk.Picture):
     __gtype_name__ = "UrlImage"
     _screenshot: bool = False
     _image_url: str = ""
+    _app_id: str = "app"
     image_dir = _ICON_DIR
     image_path = ""
 
@@ -51,13 +52,23 @@ class UrlImage(Gtk.Picture):
             self.image_dir = _ICON_DIR
 
     @GObject.Property(type=str)
+    def app_id(self):
+        return self._app_id
+
+    @app_id.setter
+    def app_id(self, value):
+        self._app_id = value
+
+        self.set_image_url(value, self._image_url)
+
+    @GObject.Property(type=str)
     def image_url(self):
         return self._image_url
 
     @image_url.setter
     def image_url(self, value):
         self._image_url = value
-        self.set_image_url("app", value)
+        self.set_image_url(self._app_id, value)
 
     def clear_image(self):
         self.set_paintable(

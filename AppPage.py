@@ -100,7 +100,11 @@ class AppPage:
         # Set icon, name, author
         self.icon.set_image_url(self.app.app_id, self.app.icon_url)
         self.name.set_label(self.app.name)
-        self.author.set_label(self.app.author)
+        if self.app.author is not None:
+            self.author.set_visible(True)
+            self.author.set_label(self.app.author)
+        else:
+            self.author.set_visible(False)
 
         # Set rating text and rating css
         rating_text, rating_css = still_rating_to_display(self.app.still_rating)

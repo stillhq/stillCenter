@@ -76,13 +76,17 @@ class StillCenter(Adw.Application):
         # Setup search
         self.builder.get_object("search_entry").connect("changed", self.search_changed)
 
-        # Set models of ListViews
-        self.builder.get_object("available_updates").set_store(self, AppStore.INSTALLED_STORE["update"])
-        self.builder.get_object("installed").set_store(self, AppStore.INSTALLED_STORE["no_update"])
-
         # Loading base pages
         self.app_page = AppPage.AppPage(self)
         self.category_page = CategoryPage.CategoryPage(self)
+
+        self.populate_apps()
+
+    def populate_apps(self):
+        self.FlowApps.populate_apps()
+        # Set models of ListViews
+        self.builder.get_object("available_updates").set_store(self, AppStore.INSTALLED_STORE["update"])
+        self.builder.get_object("installed").set_store(self, AppStore.INSTALLED_STORE["no_update"])
 
     def sidebar_selected(self, _listbox, row):
         self.main_stack.set_visible_child_name(self.sidebar_index[row.get_index()])

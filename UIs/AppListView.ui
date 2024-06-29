@@ -29,7 +29,13 @@
                 &lt;property name="margin-start"&gt;10&lt;/property&gt;
                 &lt;property name="margin-top"&gt;5&lt;/property&gt;
                 &lt;property name="margin-bottom"&gt;5&lt;/property&gt;
-&lt;!--                &lt;property name="margin-end"&gt;5&lt;/property&gt;--&gt;
+                &lt;binding name="app-id"&gt;
+                  &lt;lookup name="app-id" type="AppItem"&gt;
+                    &lt;lookup name="item" type="GtkListItem"&gt;
+                      &lt;constant&gt;GtkListItem&lt;/constant&gt;
+                    &lt;/lookup&gt;
+                  &lt;/lookup&gt;
+                &lt;/binding&gt;
                 &lt;binding name="image-url"&gt;
                   &lt;lookup name="icon" type="AppItem"&gt;
                     &lt;lookup name="item" type="GtkListItem"&gt;
