@@ -11,6 +11,7 @@
         <property name="hexpand">false</property>
         <property name="width-request">275</property>
         <property name="height-request">-1</property>
+        <signal name="activated" handler="button_activated"/>
         <style>
           <class name="card"/>
         </style>

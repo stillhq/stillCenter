@@ -12,14 +12,20 @@ import constants
 class AppGridView(Gtk.GridView):
     __gtype_name__ = "AppGridView"
     stillCenter = None
+    factory: Gtk.BuilderListItemFactory = Gtk.Template.Child()
 
     def __init__(self):
         super().__init__()
         self.connect("activate", self.activate)
+        print(self.factory.get_scope().do_create_closure(
+
+        ))
+        #.connect("activated", self.button_activated)
 
     def set_store(self, stillCenter, model: Gtk.ListStore):
         self.stillCenter = stillCenter
         self.set_model(Gtk.NoSelection.new(model))
 
-    def activate(self, _app_list_view, index):
-        self.stillCenter.app_page.show_app(self.get_model().get_item(index).app_id)
+    def button_activated(self, *args):
+        print(*args)
+        #self.stillCenter.app_page.show_app(self.get_model().get_item(index).app_id)

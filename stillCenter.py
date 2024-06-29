@@ -93,7 +93,13 @@ class StillCenter(Adw.Application):
 
     def search_changed(self, entry):
         if len(entry.get_text().strip()) > 0:
-            self.search_app_list.set_store(self, AppStore.search_algorithm(entry.get_text()))
+            store = AppStore.search_algorithm(entry.get_text())
+
+            if store.get_n_items() == 0:
+                self.search_stack.set_visible_child_name("no_results")
+                return
+
+            self.search_app_list.set_store(self, store)
             self.search_stack.set_visible_child_name("results")
         else:
             self.search_stack.set_visible_child_name("search_placeholder")
