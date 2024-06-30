@@ -133,7 +133,6 @@ def refresh_installed_store():
         else:
             INSTALLED_STORE["no_update"].append(app_item)
 
-    print(app[0])
 
 def search_algorithm(query: str) -> List[AppItem]:
     scores = {}

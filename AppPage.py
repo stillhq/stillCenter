@@ -46,6 +46,7 @@ def still_rating_to_display(rating: sadb.StillRating) -> tuple[str, Optional[str
 class AppPage:
     installed = False
     update_available = False
+    current_queue_action = None
     app = None
     db = sadb.database.get_readable_db()
 
@@ -72,8 +73,8 @@ class AppPage:
         self.category_row = self.page_builder.get_object("category_row")
         self.keyword_row = self.page_builder.get_object("keyword_row")
 
-        #sam_interface.connect_to_signal("queue_changed", self.update_buttons)
-        #sam_interface.connect_to_signal("percent_changed", self.update_buttons)
+        sam_interface.connect_to_signal("queue_changed", self.update_buttons)
+        sam_interface.connect_to_signal("progress_changed", self.percent_changed)
         self.install_button.connect("clicked", lambda button: self.run_action("install"))
         self.update_button.connect("clicked", lambda button: self.run_action("update"))
         self.remove_button.connect("clicked", lambda button: self.run_action("remove"))
@@ -124,8 +125,6 @@ class AppPage:
             self.rating_button.add_css_class(rating_css)
             self.rating_button.add_css_class(f"{rating_css}-button")
 
-        self.update_buttons()
-
         # summary and description
         self.summary.set_label(self.app.summary)
         self.description.set_label(self.app.description)
@@ -152,27 +151,33 @@ class AppPage:
         main_view = self.stillCenter.builder.get_object("main_view")
         main_view.push(self.nav_page)
 
+        self.update_buttons()
+
+    def percent_changed(self, percent):
+        if self.current_queue_action is not None:
+            match self.current_queue_action:
+                case "install":
+                    self.install_button.set_label(f"Installing {percent}%")
+                case "remove":
+                    self.install_button.set_label(f"Removing {percent}%")
+                case "update":
+                    self.install_button.set_label(f"Updating {percent}%")
+
+
     def update_buttons(self):
+        self.current_queue_action = None
         queue = sam.quick.get_queue_dicts()
-        print(self.app.src_pkg_name)
         if not queue:
             queue = {}  # Prevent function from breaking if queue is empty
         if len(queue) != 0:
             if self.app.src_pkg_name in [action["package_id"] for action in queue]:
+                self.install_button.set_label("Waiting")
                 self.install_button.set_sensitive(False)
                 self.update_button.set_visible(False)
                 self.remove_button.set_visible(False)
-                print(queue)
                 if self.app.src_pkg_name == queue[0]["package_id"]:
-                    match queue[0]["task"].lower():
-                        case "install":
-                            self.install_button.set_label(f"Installing {queue[0]["progress"]}%")
-                        case "remove":
-                            self.install_button.set_label(f"Removing {queue[0]["progress"]}%")
-                        case "update":
-                            self.install_button.set_label(f"Updating {queue[0]["progress"]}%")
-                else:
-                    self.install_button.set_label("Waiting")
+                    self.current_queue_action = queue[0]["task"].lower()
+                    self.percent_changed(queue[0]["progress"])
             else:
                 self.update_buttons_not_in_queue()
         else:
@@ -216,6 +221,6 @@ class AppPage:
                 "app_name": self.app.name,
                 "task": action,
                 "manager_id": self.app.primary_src,
-                "background": "True"
+                "background": "False"
             }
         )
