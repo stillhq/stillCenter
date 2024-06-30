@@ -72,11 +72,11 @@ class AppPage:
         self.category_row = self.page_builder.get_object("category_row")
         self.keyword_row = self.page_builder.get_object("keyword_row")
 
-        sam_interface.connect_to_signal("queue_changed", self.check_buttons)
+        #sam_interface.connect_to_signal("queue_changed", self.update_buttons)
+        #sam_interface.connect_to_signal("percent_changed", self.update_buttons)
         self.install_button.connect("clicked", lambda button: self.run_action("install"))
         self.update_button.connect("clicked", lambda button: self.run_action("update"))
         self.remove_button.connect("clicked", lambda button: self.run_action("remove"))
-        #sam_interface.connect_to_signal("percent_changed", self.update_percentage)
 
     def id_in_installed_database(self, app_id):
         self.db.c.execute("SELECT id FROM installed WHERE id = ?", (app_id,))
@@ -152,9 +152,36 @@ class AppPage:
         main_view = self.stillCenter.builder.get_object("main_view")
         main_view.push(self.nav_page)
 
-    def update_buttons_async(self):
+    def update_buttons(self):
+        queue = sam.quick.get_queue_dicts()
+        print(self.app.src_pkg_name)
+        if not queue:
+            queue = {}  # Prevent function from breaking if queue is empty
+        if len(queue) != 0:
+            if self.app.src_pkg_name in [action["package_id"] for action in queue]:
+                self.install_button.set_sensitive(False)
+                self.update_button.set_visible(False)
+                self.remove_button.set_visible(False)
+                print(queue)
+                if self.app.src_pkg_name == queue[0]["package_id"]:
+                    match queue[0]["task"].lower():
+                        case "install":
+                            self.install_button.set_label(f"Installing {queue[0]["progress"]}%")
+                        case "remove":
+                            self.install_button.set_label(f"Removing {queue[0]["progress"]}%")
+                        case "update":
+                            self.install_button.set_label(f"Updating {queue[0]["progress"]}%")
+                else:
+                    self.install_button.set_label("Waiting")
+            else:
+                self.update_buttons_not_in_queue()
+        else:
+            self.update_buttons_not_in_queue()
+
+    def update_buttons_not_in_queue(self):
         database = sadb.database.get_readable_db()
-        database.c.execute("SELECT id, update_available FROM installed WHERE src_pkg_name = ?", (self.app.src_pkg_name,))  # temp
+        database.c.execute("SELECT id, update_available FROM installed WHERE src_pkg_name = ?",
+                           (self.app.src_pkg_name,))  # temp
         app = database.c.fetchone()
 
         if app is not None:
@@ -163,94 +190,23 @@ class AppPage:
         else:
             self.installed = False
             self.update_available = False
-        GLib.idle_add(self.update_buttons)
-        GLib.idle_add(self.update_percentage)
 
-    def update_buttons(self):
-        in_queue = False
-        queue = sam.quick.get_queue_dicts()
-        if not queue:
-            queue = {}   # so code doesn't break
-        if len(queue) != 0:
-            if self.app.src_pkg_name in [action["package_id"] for action in queue]:
-                in_queue = True
-                self.install_button.set_sensitive(False)
-                self.update_button.set_sensitive(False)
-                self.remove_button.set_sensitive(False)
-
-                if self.app.src_pkg_name == queue[0]["package_id"]:
-                    match queue[0]["task"].lower():
-                        case "install":
-                            self.install_button.set_label(f"Installing {queue[0]["progress"]}%")
-                        case "remove":
-                            self.remove_button.set_label(f"Removing {queue[0]["progress"]}%")
-                        case "update":
-                            self.update_button.set_label(f"Updating {queue[0]["progress"]}%")
-                else:
-                    self.install_button.set_label("Waiting")
-        if not in_queue:
-            self.update_button.set_sensitive(True)
-            self.remove_button.set_sensitive(True)
-
-            if self.installed:
-                self.install_button.set_sensitive(False)
-                self.install_button.remove_css_class("suggested-action")
-                self.install_button.set_label("Installed")
-                if self.update_available:
-                    self.update_button.set_visible(True)
-                self.remove_button.set_visible(True)
-                # self.try_btn.set_visible(False)
-            else:
-                self.install_button.add_css_class("suggested-action")
-                self.install_button.set_label("Install")
-                self.install_button.set_sensitive(True)
-                self.update_button.set_visible(False)
-                self.remove_button.set_visible(False)
-                # self.try_btn.set_visible(self.app.demo_url is not None and self.app.demo_url != "")
-
-    def check_buttons(self):
-        if self.app is None:
-            return
-
-        # Temporarily disable buttons while checking
-        self.install_button.set_label("Loading...")
-        self.install_button.set_sensitive(False)
-        self.update_button.set_visible(False)
-        self.remove_button.set_visible(False)
-        thread = threading.Thread(target=self.update_buttons_async)
-        thread.start()
-
-
-    def update_percentage(self):
-        queue = sam.quick.get_queue_dicts()
-        if not queue:
-            return
-        if len(queue) != 0:
-            if self.app.src_pkg_name in [action["package_id"] for action in queue]:
-                self.install_button.set_sensitive(False)
-                self.update_button.set_sensitive(False)
-                self.remove_button.set_sensitive(False)
-                print(queue)
-                if self.app.src_pkg_name == queue[0]["package_id"]:
-                    match queue[0]["task"].lower():
-                        case "install":
-                            self.install_button.set_label(f"Installing {queue[0]["progress"]}%")
-                        case "remove":
-                            self.remove_button.set_label(f"Removing {queue[0]["progress"]}%")
-                        case "update":
-                            self.update_button.set_label(f"Updating {queue[0]["progress"]}%")
-                else:
-                    self.install_button.set_label("Waiting")
-            else:
-                self.update_button.set_sensitive(True)
-                self.remove_button.set_sensitive(True)
+        if self.installed:
+            self.install_button.set_sensitive(False)
+            self.install_button.set_label("Installed")
+            self.install_button.remove_css_class("suggested-action")
+            if self.update_available:
+                self.update_button.set_visible(True)
+            self.remove_button.set_visible(True)
+            # self.try_btn.set_visible(False)
         else:
-            if self.installed:
-                self.install_button.set_label(f"Installed")
-                self.install_button.set_sensitive(False)
-            else:
-                self.install_button.set_label(f"Install")
-                self.install_button.set_sensitive(True)
+            self.install_button.add_css_class("suggested-action")
+            self.install_button.set_label("Install")
+            self.install_button.set_sensitive(True)
+            self.update_button.set_visible(False)
+            self.remove_button.set_visible(False)
+            # self.try_btn.set_visible(self.app.demo_url is not None and self.app.demo_url != "")
+
 
 
     def run_action(self, action):
