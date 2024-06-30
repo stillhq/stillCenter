@@ -65,10 +65,11 @@ class FlowApps(Gtk.Box):
 
     def populate_apps(self):
         self.flowbox.remove_all()
-        for item in AppStore.STORE[self._tag][:8]:
-            self.flowbox.append(
-                FlowAppButton(self, item.app_id, item.name, item.author, item.icon)
-            )
+        if self._tag in AppStore.STORE.keys():
+            for item in AppStore.STORE[self._tag][:8]:
+                self.flowbox.append(
+                    FlowAppButton(self, item.app_id, item.name, item.author, item.icon)
+                )
 
     @GObject.property(type=str)
     def title(self):

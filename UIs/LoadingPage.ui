@@ -2,29 +2,48 @@
 <!-- Created with Cambalache 0.90.4 -->
 <interface>
   <requires lib="gtk" version="4.6"/>
-  <object class="GtkCenterBox">
-    <property name="orientation">vertical</property>
-    <child type="center">
+  <requires lib="libadwaita" version="1.4"/>
+  <template class="LoadingPage" parent="AdwNavigationPage">
+    <property name="child">
       <object class="GtkBox">
         <property name="orientation">vertical</property>
         <child>
-          <object class="GtkSpinner">
-            <property name="height-request">128</property>
-            <property name="spinning">True</property>
-            <style/>
-          </object>
-        </child>
-        <child>
-          <object class="GtkLabel" id="label">
-            <property name="label">Loading...</property>
-            <property name="margin-top">10</property>
+          <object class="AdwHeaderBar">
+            <property name="show-back-button">False</property>
             <style>
-              <class name="title-1"/>
+              <class name="flat"/>
             </style>
           </object>
         </child>
-        <style/>
+        <child>
+          <object class="GtkCenterBox">
+            <property name="orientation">vertical</property>
+            <property name="vexpand">True</property>
+            <child type="center">
+              <object class="GtkBox">
+                <property name="orientation">vertical</property>
+                <child>
+                  <object class="GtkSpinner" id="spinner">
+                    <property name="height-request">96</property>
+                    <style/>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="title">
+                    <property name="label">Loading...</property>
+                    <property name="margin-top">20</property>
+                    <style>
+                      <class name="title-1"/>
+                    </style>
+                  </object>
+                </child>
+                <style/>
+              </object>
+            </child>
+          </object>
+        </child>
       </object>
-    </child>
-  </object>
+    </property>
+    <property name="title">stillCenter</property>
+  </template>
 </interface>

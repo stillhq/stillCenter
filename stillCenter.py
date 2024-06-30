@@ -1,13 +1,19 @@
+import sadb.__main__ as sadb
+
 import CategoryPage
 import constants
+import threading
 import os
 import gi
 
+from LoadingPage import LoadingPage
+
 gi.require_version("Gtk", "4.0")
 gi.require_version("Adw", "1")
-from gi.repository import Gtk, Adw
+from gi.repository import Gtk, Adw, GLib
 from CategoryButtonBig import CategoryButtonBig
 import AppStore, AppPage, FlowApps, AppGridView, AppListView, CategoryPage
+
 
 class StillCenter(Adw.Application):
     def __init__(self):
@@ -21,6 +27,7 @@ class StillCenter(Adw.Application):
         self.sidebar = self.builder.get_object("main_sidebar")
         self.sidebar_split = self.builder.get_object("sidebar_split_view")
         self.main_stack = self.builder.get_object("main_stack")
+        self.main_view = self.builder.get_object("main_view")
         self.categories_flowbox = self.builder.get_object("categories_flowbox")
         self.search_stack = self.builder.get_object("search_stack")
         self.search_app_list = self.builder.get_object("search_app_list")
@@ -80,10 +87,29 @@ class StillCenter(Adw.Application):
         self.app_page = AppPage.AppPage(self)
         self.category_page = CategoryPage.CategoryPage(self)
 
-        self.populate_apps()
+        # Loading screen
+        self.loading_screen = LoadingPage(self)
+
+        self.loading_screen.push()
+        thread = threading.Thread(target=self.load_apps)
+        thread.start()
+
+    def load_apps(self):
+        try:
+            sadb.update_db()
+        except SystemExit:  # needed because of the click command
+            pass
+
+        try:
+            sadb.update_installed()
+        except SystemExit:
+            pass
+
+        GLib.idle_add(lambda: self.populate_apps())
+        GLib.idle_add(self.loading_screen.pop)
 
     def populate_apps(self):
-        self.FlowApps.populate_apps()
+        FlowApps.populate_apps()
         # Set models of ListViews
         self.builder.get_object("available_updates").set_store(self, AppStore.INSTALLED_STORE["update"])
         self.builder.get_object("installed").set_store(self, AppStore.INSTALLED_STORE["no_update"])
@@ -107,8 +133,6 @@ class StillCenter(Adw.Application):
             self.search_stack.set_visible_child_name("results")
         else:
             self.search_stack.set_visible_child_name("search_placeholder")
-
-
 
     def do_activate(self):
         self.window.set_application(self)

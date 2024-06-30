@@ -21,22 +21,22 @@
         &lt;property name="orientation"&gt;horizontal&lt;/property&gt;
         &lt;property name="spacing"&gt;15&lt;/property&gt;
         &lt;property name="hexpand"&gt;false&lt;/property&gt;
-        &lt;property name="halign"&gt;start&lt;/property&gt;
+        &lt;property name="halign"&gt;fill&lt;/property&gt;
         &lt;property name="vexpand"&gt;false&lt;/property&gt;
         &lt;property name="valign"&gt;start&lt;/property&gt;
-        &lt;property name="margin-start"&gt;5&lt;/property&gt;
-        &lt;property name="margin-top"&gt;5&lt;/property&gt;
-        &lt;property name="margin-bottom"&gt;5&lt;/property&gt;
-        &lt;property name="margin-end"&gt;10&lt;/property&gt;
         &lt;style&gt;
           &lt;class name="card"/&gt;
         &lt;/style&gt;
         &lt;child&gt;
           &lt;object class="UrlImage" id="image"&gt;
+            &lt;property name="margin-start"&gt;5&lt;/property&gt;
+            &lt;property name="margin-top"&gt;5&lt;/property&gt;
+            &lt;property name="margin-bottom"&gt;5&lt;/property&gt;
             &lt;property name="halign"&gt;start&lt;/property&gt;
             &lt;property name="width-request"&gt;64&lt;/property&gt;
             &lt;property name="height-request"&gt;64&lt;/property&gt;
             &lt;property name="valign"&gt;center&lt;/property&gt;
+            &lt;property name="vexpand"&gt;True&lt;/property&gt;
             &lt;binding name="app-id"&gt;
               &lt;lookup name="app-id" type="AppItem"&gt;
                 &lt;lookup name="item" type="GtkListItem"&gt;
@@ -56,6 +56,10 @@
         &lt;child&gt;
           &lt;object class="GtkBox"&gt;
             &lt;property name="orientation"&gt;vertical&lt;/property&gt;
+            &lt;property name="valign"&gt;start&lt;/property&gt;
+            &lt;property name="vexpand"&gt;True&lt;/property&gt;
+            &lt;property name="margin-top"&gt;5&lt;/property&gt;
+            &lt;property name="margin-end"&gt;10&lt;/property&gt;
             &lt;child&gt;
               &lt;object class="GtkLabel" id="name"&gt;
                 &lt;property name="ellipsize"&gt;end&lt;/property&gt;
@@ -107,8 +111,9 @@
 &lt;/interface&gt;</property>
       </object>
     </property>
-    <property name="halign">center</property>
+    <property name="hexpand">True</property>
     <property name="max-columns">4</property>
     <property name="single-click-activate">True</property>
+    <property name="vexpand">True</property>
   </template>
 </interface>

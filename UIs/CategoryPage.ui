@@ -11,6 +11,9 @@
         <child>
           <object class="AdwHeaderBar">
             <property name="show-title">False</property>
+            <style>
+              <class name="flat"/>
+            </style>
           </object>
         </child>
         <child>

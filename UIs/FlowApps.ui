@@ -34,6 +34,7 @@
                 <property name="margin-top">5</property>
                 <property name="max-children-per-line">4</property>
                 <property name="min-children-per-line">4</property>
+                <property name="selection-mode">none</property>
               </object>
             </child>
           </object>
