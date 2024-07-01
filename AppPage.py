@@ -179,6 +179,8 @@ class AppPage:
                     self.install_button.set_label(f"Updating {percent}%")
 
     def update_buttons(self):
+        if self.app is None:
+            return
         self.current_queue_action = None
         queue = sam.quick.get_queue_dicts()
         if not queue:
@@ -198,6 +200,8 @@ class AppPage:
             self.update_buttons_not_in_queue()
 
     def update_buttons_not_in_queue(self):
+        if self.app is None:
+            return
         database = sadb.database.get_readable_db()
         database.c.execute("SELECT id, update_available FROM installed WHERE src_pkg_name = ?",
                            (self.app.src_pkg_name,))  # temp
