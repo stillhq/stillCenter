@@ -28,10 +28,11 @@ def set_row_if_not_none(row, value):
     else:
         row.set_visible(False)
 
+
 def still_rating_to_display(rating: sadb.StillRating) -> tuple[str, Optional[str]]:
     match rating:
-        case sadb.StillRating.CAUTION:
-            return "Caution", "warning"
+        case sadb.StillRating.WARNING:
+            return "Warning", "warning"
         case sadb.StillRating.BRONZE:
             return "Bronze", "bronze"
         case sadb.StillRating.SILVER:

@@ -7,8 +7,8 @@ from gi.repository import Gio, Gtk, GObject, GLib
 
 import sadb.database
 
-STORE = {"all": Gio.ListStore()}
-INSTALLED_STORE = {"installed": Gio.ListStore(), "update": Gio.ListStore(), "no_update": Gio.ListStore()}
+STORE = {}
+INSTALLED_STORE = {}
 
 COLUMN_POINTS = {
     "name": 10,
@@ -98,6 +98,9 @@ class AppItem(GObject.Object):
 
 
 def refresh_app_store():
+    global STORE
+    STORE = {"all": Gio.ListStore()}
+
     db = sadb.database.get_readable_db()
     db.c.execute("SELECT id, name, author, icon_url, categories, keywords FROM apps")
     apps_columns = db.c.fetchall()
@@ -120,6 +123,9 @@ def refresh_app_store():
 
 
 def refresh_installed_store():
+    global INSTALLED_STORE
+    INSTALLED_STORE = {"installed": Gio.ListStore(), "update": Gio.ListStore(), "no_update": Gio.ListStore()}
+
     db = sadb.database.get_readable_db()
     db.c.execute("SELECT id, name, author, icon_url, categories, keywords, update_available FROM installed")
     apps_columns = db.c.fetchall()

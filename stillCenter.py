@@ -34,7 +34,9 @@ class StillCenter(Adw.Application):
         self.search_stack = self.builder.get_object("search_stack")
         self.search_app_list = self.builder.get_object("search_app_list")
         self.search_entry = self.builder.get_object("search_entry")
+        self.update_box = self.builder.get_object("update_box")
         self.update_all_button = self.builder.get_object("update_all_button")
+        self.available_updates = self.builder.get_object("available_updates")
 
         # Setting up the sidebar
         self.sidebar_index = []
@@ -91,9 +93,8 @@ class StillCenter(Adw.Application):
         self.category_page = CategoryPage.CategoryPage(self)
 
         # Set update button
-        self.update_update_button()
-        sam_interface.connect_to_signal("queue_changed", self.update_update_button)
-        self.update_all_button.connect("clicked", lambda button: sam_interface.update_all(False))
+        sam_interface.connect_to_signal("queue_changed", self.run_update_installed_page)
+        self.update_all_button.connect("clicked", self.update_all)
 
         # Loading screen
         self.loading_screen = LoadingPage(self)
@@ -101,9 +102,38 @@ class StillCenter(Adw.Application):
         self.loading_screen.push()
         thread = threading.Thread(target=self.load_apps)
         thread.start()
-        
-    # Updates the update all button lol
-    def update_update_button(self):
+
+    def update_all(self, button):
+        thread = threading.Thread(target=lambda: sam_interface.update_all(False))
+        thread.start()
+
+    def run_update_installed_page(self):
+        thread = threading.Thread(target=self.update_installed_page)
+        thread.start()
+
+    # Update installed page
+    def update_installed_page(self):
+        try:
+            sadb.update_installed()
+        except SystemExit:
+            pass
+
+        AppStore.refresh_installed_store()
+
+        GLib.idle_add(self.update_installed_gui)
+
+    def update_installed_gui(self):
+        # Set models of ListViews
+        self.builder.get_object("installed").set_store(self, AppStore.INSTALLED_STORE["no_update"])
+        self.builder.get_object("available_updates").set_store(self, AppStore.INSTALLED_STORE["update"])
+
+        if AppStore.INSTALLED_STORE["update"].get_n_items() == 0:
+            self.available_updates.set_visible(False)
+            self.update_box.set_visible(False)
+        else:
+            self.available_updates.set_visible(True)
+            self.update_box.set_visible(True)
+
         queue = sam.quick.get_queue_dicts()
         if not queue:
             queue = {}  # Prevent function from breaking if queue is empty
@@ -118,19 +148,13 @@ class StillCenter(Adw.Application):
         except SystemExit:  # needed because of the click command
             pass
 
-        try:
-            sadb.update_installed()
-        except SystemExit:
-            pass
+        self.update_installed_page()
 
         GLib.idle_add(lambda: self.populate_apps())
         GLib.idle_add(self.loading_screen.pop)
 
     def populate_apps(self):
         FlowApps.populate_apps()
-        # Set models of ListViews
-        self.builder.get_object("available_updates").set_store(self, AppStore.INSTALLED_STORE["update"])
-        self.builder.get_object("installed").set_store(self, AppStore.INSTALLED_STORE["no_update"])
 
     def sidebar_selected(self, _listbox, row):
         self.main_stack.set_visible_child_name(self.sidebar_index[row.get_index()])
