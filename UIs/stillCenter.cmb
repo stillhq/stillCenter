@@ -68,7 +68,7 @@
 	(1,72,"AppListView","search_app_list",71,None,None,None,None,None,None),
 	(1,73,"GtkStackPage",None,44,None,None,None,2,None,None),
 	(1,74,"AdwStatusPage",None,73,None,None,None,None,None,None),
-	(1,75,"GtkBox",None,60,None,None,None,1,None,None),
+	(1,75,"GtkBox","update_box",60,None,None,None,1,None,None),
 	(1,76,"GtkButton","update_all_button",75,None,None,None,1,None,None),
 	(4,1,"GtkGridView","AppGridView",None,None,None,None,-1,None,None),
 	(4,2,"GtkBuilderListItemFactory","factory",1,None,None,None,-1,None,None),

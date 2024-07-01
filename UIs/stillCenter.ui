@@ -263,7 +263,7 @@
                                         <property name="margin-top">15</property>
                                         <property name="orientation">vertical</property>
                                         <child>
-                                          <object class="GtkBox">
+                                          <object class="GtkBox" id="update_box">
                                             <child>
                                               <object class="GtkLabel">
                                                 <property name="halign">start</property>
