@@ -5,7 +5,9 @@ import constants
 import threading
 import os
 import gi
+import sam.quick
 
+from SamInterface import sam_interface
 from LoadingPage import LoadingPage
 
 gi.require_version("Gtk", "4.0")
@@ -32,6 +34,7 @@ class StillCenter(Adw.Application):
         self.search_stack = self.builder.get_object("search_stack")
         self.search_app_list = self.builder.get_object("search_app_list")
         self.search_entry = self.builder.get_object("search_entry")
+        self.update_all_button = self.builder.get_object("update_all_button")
 
         # Setting up the sidebar
         self.sidebar_index = []
@@ -81,11 +84,16 @@ class StillCenter(Adw.Application):
         )
 
         # Setup search
-        self.builder.get_object("search_entry").connect("changed", self.search_changed)
+        self.search_entry.connect("changed", self.search_changed)
 
         # Loading base pages
         self.app_page = AppPage.AppPage(self)
         self.category_page = CategoryPage.CategoryPage(self)
+
+        # Set update button
+        self.update_update_button()
+        self.sam_interface.connect("queue-changed", self.update_update_button)
+        self.update_all_button.connect("clicked", lambda: self.sam_interface.update_all(False))
 
         # Loading screen
         self.loading_screen = LoadingPage(self)
@@ -93,6 +101,16 @@ class StillCenter(Adw.Application):
         self.loading_screen.push()
         thread = threading.Thread(target=self.load_apps)
         thread.start()
+        
+    # Updates the update all button lol
+    def update_update_button(self):
+        queue = sam.quick.get_queue_dicts()
+        if not queue:
+            queue = {}  # Prevent function from breaking if queue is empty
+        if len(queue) != 0:
+            self.update_all_button.set_sensitive(False)
+        else:
+            self.update_all_button.set_sensitive(True)
 
     def load_apps(self):
         try:

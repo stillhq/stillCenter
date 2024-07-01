@@ -12,7 +12,8 @@ import UrlImage
 import sam.quick
 
 gi.require_version("Gtk", "4.0")
-from gi.repository import Gio, Gtk, GObject, GLib
+gi.require_version("Adw", "1")
+from gi.repository import Gio, Gtk, GObject, GLib, Adw
 
 
 def clear_css_classes(widget):
@@ -75,6 +76,7 @@ class AppPage:
 
         sam_interface.connect_to_signal("queue_changed", self.update_buttons)
         sam_interface.connect_to_signal("progress_changed", self.percent_changed)
+        self.rating_button.connect("clicked", self.rating_button_clicked)
         self.install_button.connect("clicked", lambda button: self.run_action("install"))
         self.update_button.connect("clicked", lambda button: self.run_action("update"))
         self.remove_button.connect("clicked", lambda button: self.run_action("remove"))
@@ -153,6 +155,19 @@ class AppPage:
 
         self.update_buttons()
 
+    def rating_button_clicked(self, _button):
+        rating_text, rating_css = still_rating_to_display(self.app.still_rating)
+        if self.app.still_rating == sadb.StillRating.UNKNOWN:
+            dialog = TextDialog(
+                "stillRating: <b>Unknown</b>",
+                "stillHQ has not curated this app. Therefore no rating notes are available."
+            )
+        else:
+            dialog = TextDialog(f"stillRating: <b>{rating_text}</b>", self.app.still_rating_notes)
+            dialog.headerbar.add_css_class(rating_css)
+            dialog.box.add_css_class(rating_css)
+        dialog.present(self.rating_button)
+
     def percent_changed(self, percent):
         if self.current_queue_action is not None:
             match self.current_queue_action:
@@ -162,7 +177,6 @@ class AppPage:
                     self.install_button.set_label(f"Removing {percent}%")
                 case "update":
                     self.install_button.set_label(f"Updating {percent}%")
-
 
     def update_buttons(self):
         self.current_queue_action = None
@@ -213,7 +227,6 @@ class AppPage:
             # self.try_btn.set_visible(self.app.demo_url is not None and self.app.demo_url != "")
 
 
-
     def run_action(self, action):
         sam_interface.add_dict_to_queue(
             {
@@ -224,3 +237,38 @@ class AppPage:
                 "background": "False"
             }
         )
+
+
+class TextDialog(Adw.Dialog):
+    def __init__(self, title, text):
+        super().__init__()
+        self.set_title(title)
+        self.set_content_width(550)
+        self.set_content_height(500)
+        self.set_presentation_mode(Adw.DialogPresentationMode.FLOATING)
+
+        self.box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
+
+        self.headerbar = Adw.HeaderBar()
+        self.title = Gtk.Label()
+        self.title.set_markup(title)
+        self.headerbar.set_title_widget(self.title)
+        self.headerbar.add_css_class("flat")
+        self.box.append(self.headerbar)
+
+        self.scroll = Gtk.ScrolledWindow()
+        self.scroll.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
+        self.text_label = Gtk.Label(label=text, xalign=0)
+        self.text_label.set_margin_top(10)
+        self.text_label.set_margin_bottom(10)
+        self.text_label.set_margin_start(10)
+        self.text_label.set_margin_end(10)
+        self.text_label.set_vexpand(True)
+        self.text_label.set_hexpand(True)
+        self.text_label.set_valign(Gtk.Align.START)
+        self.text_label.set_halign(Gtk.Align.FILL)
+        self.text_label.set_wrap(True)
+        self.scroll.set_child(self.text_label)
+
+        self.box.append(self.scroll)
+        self.set_child(self.box)

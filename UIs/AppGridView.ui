@@ -114,6 +114,5 @@
     <property name="hexpand">True</property>
     <property name="max-columns">4</property>
     <property name="single-click-activate">True</property>
-    <property name="vexpand">True</property>
   </template>
 </interface>

@@ -263,13 +263,29 @@
                                         <property name="margin-top">15</property>
                                         <property name="orientation">vertical</property>
                                         <child>
-                                          <object class="GtkLabel">
-                                            <property name="label">Available Updates</property>
-                                            <property name="margin-bottom">5</property>
-                                            <property name="xalign">0.0</property>
-                                            <style>
-                                              <class name="title-1"/>
-                                            </style>
+                                          <object class="GtkBox">
+                                            <child>
+                                              <object class="GtkLabel">
+                                                <property name="halign">start</property>
+                                                <property name="hexpand">True</property>
+                                                <property name="label">Available Updates</property>
+                                                <property name="margin-bottom">5</property>
+                                                <property name="xalign">0.0</property>
+                                                <style>
+                                                  <class name="title-1"/>
+                                                </style>
+                                              </object>
+                                            </child>
+                                            <child>
+                                              <object class="GtkButton" id="update_all_button">
+                                                <property name="label">Update All</property>
+                                                <property name="margin-bottom">5</property>
+                                                <style>
+                                                  <class name="accent"/>
+                                                  <class name="flat"/>
+                                                </style>
+                                              </object>
+                                            </child>
                                           </object>
                                         </child>
                                         <child>

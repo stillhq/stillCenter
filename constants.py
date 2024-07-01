@@ -2,6 +2,7 @@ import os
 
 UI_DIR = os.path.join(os.path.dirname(__file__), "UIs")
 
+
 SUBCATEGORIES = {
     "Audio": [
         ("Player", "Audio Players"),

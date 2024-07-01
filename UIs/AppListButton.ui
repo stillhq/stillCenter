@@ -95,35 +95,13 @@
                 <property name="halign">end</property>
                 <property name="hexpand">true</property>
                 <child>
-                  <object class="GtkButton" id="update">
+                  <object class="GtkImage" id="update">
                     <property name="valign">center</property>
                     <property name="icon-name">software-update-available-symbolic</property>
-                    <style>
-    <!--              <class name="flat"/>-->
-                      <class name="circular"/>
-                      <class name="accent"/>
-                    </style>
+                    <property name="pixel-size">18</property>
+                    <property name="margin-end">5</property>
                     <binding name="visible">
                       <lookup name="update" type="AppItem">
-                        <lookup name="item" type="GtkListItem">
-                          <constant>GtkListItem</constant>
-                        </lookup>
-                      </lookup>
-                    </binding>
-                  </object>
-                </child>
-                <child>
-                  <object class="GtkButton" id="remove">
-                    <property name="valign">center</property>
-                    <property name="margin-start">5</property>
-                    <property name="icon-name">app-remove-symbolic</property>
-                    <style>
-                      <!--              <class name="flat"/>-->
-                      <class name="circular"/>
-                      <class name="error"/>
-                    </style>
-                    <binding name="visible">
-                      <lookup name="installed" type="AppItem">
                         <lookup name="item" type="GtkListItem">
                           <constant>GtkListItem</constant>
                         </lookup>
