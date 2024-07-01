@@ -92,8 +92,8 @@ class StillCenter(Adw.Application):
 
         # Set update button
         self.update_update_button()
-        self.sam_interface.connect("queue-changed", self.update_update_button)
-        self.update_all_button.connect("clicked", lambda: self.sam_interface.update_all(False))
+        sam_interface.connect_to_signal("queue_changed", self.update_update_button)
+        self.update_all_button.connect("clicked", lambda button: sam_interface.update_all(False))
 
         # Loading screen
         self.loading_screen = LoadingPage(self)
@@ -136,8 +136,6 @@ class StillCenter(Adw.Application):
         self.main_stack.set_visible_child_name(self.sidebar_index[row.get_index()])
         if self.sidebar_split.get_collapsed() and not self.sidebar_split.get_show_content():
             self.sidebar_split.set_show_content(True)
-        # if self.main_stack.get_visible_child_name() == "search":
-        #     self.main_stack.get_visible_child().reset()
 
     def search_changed(self, entry):
         if len(entry.get_text().strip()) > 0:
