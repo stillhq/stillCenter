@@ -9,8 +9,9 @@ from gi.overrides.GdkPixbuf import GdkPixbuf
 gi.require_version("Gtk", "4.0")
 gi.require_version("Gdk", "4.0")
 gi.require_version("Soup", "3.0")
+gi.require_version("Adw", "1")
 
-from gi.repository import Gtk, Gdk, Soup, GLib, GObject
+from gi.repository import Gtk, Gdk, Soup, GLib, GObject, Adw
 
 import constants
 
@@ -28,13 +29,14 @@ shutil.rmtree(_SCREENSHOT_DIR)
 os.makedirs(_SCREENSHOT_DIR)
 
 @Gtk.Template(filename=os.path.join(constants.UI_DIR, "UrlImage.ui"))
-class UrlImage(Gtk.Picture):
+class UrlImage(Adw.Bin):
     __gtype_name__ = "UrlImage"
     _screenshot: bool = False
     _image_url: str = ""
     _app_id: str = "app"
     image_dir = _ICON_DIR
     image_path = ""
+    image: Gtk.Image = Gtk.Template.Child()
 
     def __init__(self):
         super().__init__()
@@ -71,7 +73,7 @@ class UrlImage(Gtk.Picture):
         self.set_image_url(self._app_id, value)
 
     def clear_image(self):
-        self.set_paintable(
+        self.image.set_from_paintable(
             Gtk.IconTheme.get_for_display(
                 Gdk.Display.get_default()
             ).lookup_icon(
@@ -90,7 +92,7 @@ class UrlImage(Gtk.Picture):
 
         try:
             texture = Gdk.Texture.new_from_bytes(bytes)
-            self.set_paintable(texture)
+            self.image.set_from_paintable(texture)
         except GLib.Error:
             self.clear_image()
 
@@ -101,7 +103,7 @@ class UrlImage(Gtk.Picture):
             return
 
         if os.path.exists(self.image_path):
-            self.set_filename(self.image_path)
+            self.image.set_from_file(self.image_path)
             return
 
         session = Soup.Session()

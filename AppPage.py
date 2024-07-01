@@ -144,6 +144,11 @@ class AppPage:
         for screenshot in self.app.screenshot_urls:
             if screenshot != "":
                 image = UrlImage.UrlImage()
+                #image.set_content_fit(Gtk.ContentFit.SCALE_DOWN)
+                image.set_vexpand(False)
+                image.set_hexpand(True)
+                image.set_size_request(-1, 400)
+                image.set_can_shrink(False)
                 image.set_image_url(self.app.app_id, screenshot)
                 self.screenshot_box.append(image)
             else:

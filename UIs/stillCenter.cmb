@@ -11,8 +11,8 @@
 	(9,5,None,"LoadingPage.ui",None,None,None,None,None,None,None),
 	(10,None,None,"AppGridPage.ui",None,None,None,None,None,None,None),
 	(11,None,None,"AppPage.ui",None,None,None,None,None,None,None),
-	(12,1,None,"UrlImage.ui",None,None,None,None,None,None,None),
-	(13,1,None,"CategoryPage.ui",None,None,None,None,None,None,None)
+	(13,1,None,"CategoryPage.ui",None,None,None,None,None,None,None),
+	(15,3,None,"UrlImage.ui",None,None,None,None,None,None,None)
   </ui>
   <css>
 	(1,"stillRatingColors.css",None,None)
@@ -128,8 +128,6 @@
 	(11,73,"AdwActionRow","source_row",70,None,None,None,2,None,None),
 	(11,74,"AdwActionRow","category_row",70,None,None,None,3,None,None),
 	(11,75,"AdwActionRow","keyword_row",70,None,None,None,4,None,None),
-	(11,76,"UrlImage","icon",53,None,None,None,None,None,None),
-	(12,1,"GtkPicture","UrlImage",None,None,None,None,-1,None,None),
 	(13,1,"AdwNavigationPage","CategoryPage",None,None,None,None,-1,None,None),
 	(13,2,"GtkBox",None,1,None,None,None,-1,None,None),
 	(13,3,"AdwHeaderBar",None,2,None,None,None,None,None,None),
@@ -138,7 +136,9 @@
 	(13,6,"GtkLabel","category_title",5,None,None,None,None,None,None),
 	(13,8,"AppGridView","app_grid",5,None,None,None,3,None,None),
 	(13,9,"GtkScrolledWindow",None,5,None,None,None,2,None,None),
-	(13,10,"GtkBox","subcategory_button_box",9,None,None,None,None,None,None)
+	(13,10,"GtkBox","subcategory_button_box",9,None,None,None,None,None,None),
+	(15,3,"AdwBin","UrlImage",None,None,None,None,-1,None,None),
+	(15,4,"GtkImage","image",3,None,None,None,-1,None,None)
   </object>
   <object_property>
 	(1,1,"GtkWindow","default-height","500",None,None,None,None,None,None,None,None,None),
@@ -264,10 +264,6 @@
 	(5,6,"GtkLabel","lines","1",None,None,None,None,None,None,None,None,None),
 	(5,6,"GtkLabel","xalign","0.0",None,None,None,None,None,None,None,None,None),
 	(5,6,"GtkWidget","margin-top","5",None,None,None,None,None,None,None,None,None),
-	(5,7,"GtkWidget","height-request","64",None,None,None,None,None,None,None,None,None),
-	(5,7,"GtkWidget","margin-bottom","4",None,None,None,None,None,None,None,None,None),
-	(5,7,"GtkWidget","margin-top","4",None,None,None,None,None,None,None,None,None),
-	(5,7,"GtkWidget","width-request","64",None,None,None,None,None,None,None,None,None),
 	(6,1,"GtkOrientable","orientation","vertical",None,None,None,None,None,None,None,None,None),
 	(6,1,"GtkWidget","margin-bottom","5",None,None,None,None,None,None,None,None,None),
 	(6,1,"GtkWidget","margin-end","5",None,None,None,None,None,None,None,None,None),
@@ -352,9 +348,13 @@
 	(11,63,"GtkWidget","valign","center",None,None,None,None,None,None,None,None,None),
 	(11,64,"GtkButton","label","Install",None,None,None,None,None,None,None,None,None),
 	(11,64,"GtkWidget","valign","center",None,None,None,None,None,None,None,None,None),
-	(11,65,"GtkScrolledWindow","hscrollbar-policy","never",None,None,None,None,None,None,None,None,None),
+	(11,65,"GtkScrolledWindow","vscrollbar-policy","never",None,None,None,None,None,None,None,None,None),
 	(11,65,"GtkWidget","margin-top","10",None,None,None,None,None,None,None,None,None),
 	(11,65,"GtkWidget","valign","start",None,None,None,None,None,None,None,None,None),
+	(11,66,"GtkBox","homogeneous","True",None,None,None,None,None,None,None,None,None),
+	(11,66,"GtkWidget","halign","start",None,None,None,None,None,None,None,None,None),
+	(11,66,"GtkWidget","height-request","400",None,None,None,None,None,None,None,None,None),
+	(11,66,"GtkWidget","hexpand","True",None,None,None,None,None,None,None,None,None),
 	(11,67,"GtkLabel","label","App Summary",None,None,None,None,None,None,None,None,None),
 	(11,67,"GtkLabel","xalign","0.0",None,None,None,None,None,None,None,None,None),
 	(11,67,"GtkWidget","margin-top","20",None,None,None,None,None,None,None,None,None),
@@ -383,9 +383,6 @@
 	(11,75,"AdwActionRow","icon-name","flag-filled-symbolic",None,None,None,None,None,None,None,None,None),
 	(11,75,"AdwActionRow","subtitle","example1, example2",None,None,None,None,None,None,None,None,None),
 	(11,75,"AdwPreferencesRow","title","Keywords",None,None,None,None,None,None,None,None,None),
-	(11,76,"GtkWidget","height-request","128",None,None,None,None,None,None,None,None,None),
-	(11,76,"GtkWidget","width-request","128",None,None,None,None,None,None,None,None,None),
-	(12,1,"GtkPicture","content-fit","scale-down",None,None,None,None,None,None,None,None,None),
 	(13,1,"AdwNavigationPage","title","Category Page",None,None,None,None,None,None,None,None,None),
 	(13,2,"GtkOrientable","orientation","vertical",None,None,None,None,None,None,None,None,None),
 	(13,3,"AdwHeaderBar","show-title","False",None,None,None,None,None,None,None,None,None),
@@ -405,7 +402,8 @@
 	(13,8,"GtkWidget","margin-top","5",None,None,None,None,None,None,None,None,None),
 	(13,9,"GtkScrolledWindow","vscrollbar-policy","never",None,None,None,None,None,None,None,None,None),
 	(13,10,"GtkBox","spacing","5",None,None,None,None,None,None,None,None,None),
-	(13,10,"GtkWidget","margin-bottom","5",None,None,None,None,None,None,None,None,None)
+	(13,10,"GtkWidget","margin-bottom","5",None,None,None,None,None,None,None,None,None),
+	(15,3,"AdwBin","child",None,None,None,None,None,4,None,None,None,None)
   </object_property>
   <object_data>
 	(5,5,"GtkWidget",1,1,None,None,None,None,None,None),
@@ -445,7 +443,6 @@
 	(1,66,"GtkWidget",2,2,None,1,None,None,None,None),
 	(8,1,"GtkWidget",1,1,None,None,None,None,None,None),
 	(8,1,"GtkWidget",2,2,None,1,None,None,None,None),
-	(5,7,"GtkWidget",1,1,None,None,None,None,None,None),
 	(11,56,"GtkWidget",1,1,None,None,None,None,None,None),
 	(11,56,"GtkWidget",2,2,None,1,None,None,None,None),
 	(11,56,"GtkWidget",2,3,None,1,None,None,None,None),

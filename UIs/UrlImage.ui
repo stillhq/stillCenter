@@ -1,8 +1,11 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!-- Created with Cambalache 0.90.4 -->
 <interface>
-  <requires lib="gtk" version="4.8"/>
-  <template class="UrlImage" parent="GtkPicture">
-    <property name="content-fit">scale-down</property>
+  <requires lib="gtk" version="4.0"/>
+  <requires lib="libadwaita" version="1.0"/>
+  <template class="UrlImage" parent="AdwBin">
+    <property name="child">
+      <object class="GtkImage" id="image"/>
+    </property>
   </template>
 </interface>
