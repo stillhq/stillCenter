@@ -37,6 +37,8 @@ class UrlImage(Adw.Bin):
     image_dir = _ICON_DIR
     image_path = ""
     image: Gtk.Image = Gtk.Template.Child()
+    width_from_image: bool = False
+    height: int = 0
 
     def __init__(self):
         super().__init__()

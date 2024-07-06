@@ -34,6 +34,7 @@ class StillCenter(Adw.Application):
         self.search_stack = self.builder.get_object("search_stack")
         self.search_app_list = self.builder.get_object("search_app_list")
         self.search_entry = self.builder.get_object("search_entry")
+        self.search_placeholder = self.builder.get_object("search_placeholder")
         self.update_box = self.builder.get_object("update_box")
         self.update_all_button = self.builder.get_object("update_all_button")
         self.available_updates = self.builder.get_object("available_updates")
@@ -154,6 +155,7 @@ class StillCenter(Adw.Application):
         GLib.idle_add(self.loading_screen.pop)
 
     def populate_apps(self):
+        self.search_placeholder.set_title(f"Search from {len(AppStore.STORE["all"])} Apps")
         FlowApps.populate_apps()
 
     def sidebar_selected(self, _listbox, row):

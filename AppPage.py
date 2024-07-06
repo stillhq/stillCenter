@@ -46,6 +46,7 @@ def still_rating_to_display(rating: sadb.StillRating) -> tuple[str, Optional[str
 
 
 class AppPage:
+    button_style_applied = False
     installed = False
     update_available = False
     current_queue_action = None
@@ -81,6 +82,15 @@ class AppPage:
         self.install_button.connect("clicked", lambda button: self.run_action("install"))
         self.update_button.connect("clicked", lambda button: self.run_action("update"))
         self.remove_button.connect("clicked", lambda button: self.run_action("remove"))
+
+        # Add CSS for Buttons on first initialization
+        if AppPage.button_style_applied is False:
+            css = Gtk.CssProvider()
+            css.load_from_file(Gio.File.new_for_path(os.path.join(constants.UI_DIR, "stillRatingColors.css")))
+            Gtk.StyleContext.add_provider_for_display(
+                self.rating_button.get_display(), css, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+            )
+            AppPage.button_style_applied = True
 
     def id_in_installed_database(self, app_id):
         self.db.c.execute("SELECT id FROM installed WHERE id = ?", (app_id,))
@@ -144,11 +154,10 @@ class AppPage:
         for screenshot in self.app.screenshot_urls:
             if screenshot != "":
                 image = UrlImage.UrlImage()
-                #image.set_content_fit(Gtk.ContentFit.SCALE_DOWN)
-                image.set_vexpand(False)
+                image.set_vexpand(True)
                 image.set_hexpand(True)
-                image.set_size_request(-1, 400)
-                image.set_can_shrink(False)
+                image.image.set_vexpand(True)
+                image.image.set_hexpand(True)
                 image.set_image_url(self.app.app_id, screenshot)
                 self.screenshot_box.append(image)
             else:

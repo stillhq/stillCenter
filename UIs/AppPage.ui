@@ -28,6 +28,12 @@
                   <object class="GtkBox">
                     <property name="spacing">10</property>
                     <child>
+                      <object class="UrlImage" id="icon">
+                        <property name="height-request">128</property>
+                        <property name="width-request">128</property>
+                      </object>
+                    </child>
+                    <child>
                       <object class="GtkBox">
                         <property name="hexpand">True</property>
                         <property name="margin-start">5</property>
@@ -116,15 +122,14 @@
                 </child>
                 <child>
                   <object class="GtkScrolledWindow" id="screenshot_scroll">
+                    <property name="hscrollbar-policy">always</property>
                     <property name="margin-top">10</property>
                     <property name="valign">start</property>
                     <property name="vscrollbar-policy">never</property>
                     <child>
                       <object class="GtkBox" id="screenshot_box">
-                        <property name="halign">start</property>
                         <property name="height-request">400</property>
                         <property name="hexpand">True</property>
-                        <property name="homogeneous">True</property>
                       </object>
                     </child>
                     <style>

@@ -5,9 +5,9 @@ UI_DIR = os.path.join(os.path.dirname(__file__), "UIs")
 
 SUBCATEGORIES = {
     "Audio": [
-        ("Player", "Audio Players"),
-        ("Recorder", "Audio Recording"),
-        ("AudioVideoEditing", "Audio Editing"),
+        ("AudioPlayer", "Audio Players"),
+        ("AudioRecorder", "Audio Recording"),
+        ("AudioAudioVideoEditing", "Audio Editing"),
         ("Midi", "Midi"),
         ("Mixing", "Mixing"),
         ("Sequencer", "Sequencers"),
@@ -120,9 +120,9 @@ SUBCATEGORIES = {
         ("ConsoleOnly", "Terminal Apps")
     ],
     "Video": [
-        ("Player", "Video Players"),
-        ("Recorder", "Video Recording"),
-        ("AudioVideoEditing", "Video Editing"),
+        ("VideoPlayer", "Video Players"),
+        ("VideoRecorder", "Video Recording"),
+        ("VideoAudioVideoEditing", "Video Editing"),
         ("TV", "TV"),
         ("DiscBurning", "Disc Burning")
     ],

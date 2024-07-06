@@ -1,0 +1,43 @@
+.bronze {
+    background-color: #D99E63;
+    color: black;
+}
+.bronze-button:hover {
+    background-color: #cd894b;
+}
+.bronze-button:active {
+    background-color: #ab6a2f;
+}
+
+.silver {
+    background-color: #C0C0C0;
+    color: black;
+}
+.silver-button:hover {
+    background-color: #adadad;
+}
+.silver-button:active {
+    background-color: #868686;
+}
+
+.gold {
+    background-color: #DBC76B;
+    color: black;
+}
+.gold-button:hover {
+    background-color: #d5bd51;
+}
+.gold-button:active {
+    background-color: #b89f2d;
+}
+
+.gold-plus {
+    background-color: black;
+    color: #CBA52A;
+}
+.gold-plus-button:hover {
+    background-color: #333333;
+}
+.gold-plus-button:active {
+    background-color: #666666;
+}

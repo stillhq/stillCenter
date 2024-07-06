@@ -112,14 +112,22 @@ def refresh_app_store():
         app_item = AppItem(app[0], app[1], app[2], app[3])
 
         for category in categories:
-            if category not in STORE.keys():
-                STORE[category] = Gio.ListStore()
-            STORE[category].append(app_item)
+            add_to_category(category, app_item)
+
+            if "Audio" in categories:
+                add_to_category("Audio" + category, app_item)
+            if "Video" in categories:
+                add_to_category("Video" + category, app_item)
+
         for keyword in keywords:
-            if keyword not in STORE.keys():
-                STORE[keyword] = Gio.ListStore()
-            STORE[keyword].append(app_item)
+            add_to_category("keyword-" + keyword, app_item)
         STORE["all"].append(app_item)
+
+
+def add_to_category(category, app_item):
+    if category not in STORE.keys():
+        STORE[category] = Gio.ListStore()
+    STORE[category].append(app_item)
 
 
 def refresh_installed_store():
