@@ -66,8 +66,12 @@ class AppPage:
         self.remove_button = self.page_builder.get_object("remove_button")
         self.install_button = self.page_builder.get_object("install_button")
         self.update_button = self.page_builder.get_object("update_button")
-        self.screenshot_scroll = self.page_builder.get_object("screenshot_scroll")
-        self.screenshot_box = self.page_builder.get_object("screenshot_box")
+        self.screenshot_overlay = self.page_builder.get_object("screenshot_overlay")
+        self.screenshot_carousel = self.page_builder.get_object("screenshot_carousel")
+        self.next_screenshot = self.page_builder.get_object("next_screenshot")
+        self.back_screenshot = self.page_builder.get_object("back_screenshot")
+        self.next_ss_revealer = self.page_builder.get_object("next_ss_revealer")
+        self.back_ss_revealer = self.page_builder.get_object("back_ss_revealer")
         self.summary = self.page_builder.get_object("summary_label")
         self.description = self.page_builder.get_object("description")
         self.homepage_row = self.page_builder.get_object("homepage_row")
@@ -82,6 +86,9 @@ class AppPage:
         self.install_button.connect("clicked", lambda button: self.run_action("install"))
         self.update_button.connect("clicked", lambda button: self.run_action("update"))
         self.remove_button.connect("clicked", lambda button: self.run_action("remove"))
+        self.screenshot_carousel.connect("page-changed", self.carousel_changed)
+        self.next_screenshot.connect("clicked", self.ss_btn_clicked, 1)
+        self.back_screenshot.connect("clicked", self.ss_btn_clicked, -1)
 
         # Add CSS for Buttons on first initialization
         if AppPage.button_style_applied is False:
@@ -116,10 +123,10 @@ class AppPage:
             return
 
         # clear screenshot boxes
-        child = self.screenshot_box.get_first_child()
+        child = self.screenshot_carousel.get_first_child()
         while child is not None:
-            self.screenshot_box.remove(child)
-            child = self.screenshot_box.get_first_child()
+            self.screenshot_carousel.remove(child)
+            child = self.screenshot_carousel.get_first_child()
 
         # Set icon, name, author
         self.icon.set_image_url(self.app.app_id, self.app.icon_url)
@@ -156,13 +163,19 @@ class AppPage:
                 image = UrlImage.UrlImage()
                 image.set_vexpand(True)
                 image.set_hexpand(True)
+                image.set_valign(Gtk.Align.FILL)
+                image.set_halign(Gtk.Align.FILL)
                 image.image.set_vexpand(True)
                 image.image.set_hexpand(True)
+                image.image.set_valign(Gtk.Align.FILL)
+                image.image.set_halign(Gtk.Align.FILL)
                 image.set_image_url(self.app.app_id, screenshot)
-                self.screenshot_box.append(image)
+                self.screenshot_carousel.append(image)
             else:
                 self.app.screenshot_urls.remove(screenshot)
-        self.screenshot_scroll.set_visible(len(self.app.screenshot_urls) > 0)
+        self.screenshot_overlay.set_visible(len(self.app.screenshot_urls) > 0)
+        self.next_ss_revealer.set_reveal_child(len(self.app.screenshot_urls) > 1)
+        self.carousel_changed(self.screenshot_carousel, 0)
 
         # Show the page
         main_view = self.stillCenter.builder.get_object("main_view")
@@ -170,12 +183,32 @@ class AppPage:
 
         self.update_buttons()
 
+
+    def carousel_changed(self, carousel: Adw.Carousel, index: int):
+        if index > 0:
+            self.back_ss_revealer.set_reveal_child(True)
+        else:
+            self.back_ss_revealer.set_reveal_child(False)
+
+        if index + 1 >= carousel.get_n_pages():
+            self.next_ss_revealer.set_reveal_child(False)
+        else:
+            self.next_ss_revealer.set_reveal_child(True)
+
+
+    def ss_btn_clicked(self, _button: Gtk.Button, changed_by: int):
+        screenshots = self.screenshot_carousel.observe_children()
+        index = round(self.screenshot_carousel.get_position())
+        if 0 <= index + changed_by < screenshots.get_n_items():
+            self.screenshot_carousel.scroll_to(screenshots.get_item(index + changed_by), True)
+
+
     def rating_button_clicked(self, _button):
         rating_text, rating_css = still_rating_to_display(self.app.still_rating)
         if self.app.still_rating == sadb.StillRating.UNKNOWN:
             dialog = TextDialog(
                 "stillRating: <b>Unknown</b>",
-                "stillHQ has not curated this app. Therefore no rating notes are available."
+                "stillHQ has not rated this app. Therefore no rating notes are available."
             )
         else:
             dialog = TextDialog(f"stillRating: <b>{rating_text}</b>", self.app.still_rating_notes)
